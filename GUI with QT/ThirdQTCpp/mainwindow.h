@@ -28,8 +28,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QFile file;
-    QString path;
+    // QFile file;
+    // QString path;
    // QFile path=(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)+"\\todofile.txt");
 };
 #endif // MAINWINDOW_H
