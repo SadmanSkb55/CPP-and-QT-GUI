@@ -17,8 +17,8 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>90</y>
+      <x>330</x>
+      <y>100</y>
       <width>361</width>
       <height>341</height>
      </rect>
@@ -98,6 +98,19 @@
       <string>Close</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QLabel" name="label_pic">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>119</y>
+      <width>201</width>
+      <height>321</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
