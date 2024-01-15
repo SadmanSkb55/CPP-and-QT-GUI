@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
    //  ui->label_pic->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
 
     //for gif,QMovie
-   QMovie* movie = new QMovie("D:\\QTGUICPP\\QTCPPProjects\\LoginFormQTCpp\\toothlessgif.gif");
+   QMovie* movie = new QMovie(":/resources/Img/toothlessgif.gif");
    ui->label_pic->setMovie(movie);
    // Start the GIF animation
    movie->start();
