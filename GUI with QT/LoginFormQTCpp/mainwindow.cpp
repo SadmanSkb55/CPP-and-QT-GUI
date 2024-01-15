@@ -48,6 +48,11 @@ void MainWindow::on_pushButton_clicked()
          simulateLoading();
         QMessageBox::information(this,"Welcome","User Authenticated");
         hide();
+        // QMessageBox msgBox;
+        // msgBox.setIconPixmap(QPixmap(":/resources/Img/Ryan.jpg"));
+        // msgBox.setTextFormat(Qt::RichText);
+        // msgBox.setText("Now go to the next page :)");
+        // msgBox.exec();
         afterlogin=new AfterLogin(this);
         afterlogin->show();
         afterlogin->exec();

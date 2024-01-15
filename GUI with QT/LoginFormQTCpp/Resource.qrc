@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/resources">
         <file>Img/toothlessgif.gif</file>
+        <file>Img/Sisypus.jpg</file>
+        <file>Img/Josh.jpg</file>
+        <file>Img/Ryan.jpg</file>
     </qresource>
 </RCC>
