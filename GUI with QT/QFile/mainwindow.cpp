@@ -3,6 +3,7 @@
 #include<QFile>
 #include<QTextStream>
 #include<QMessageBox>
+#include<QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -32,7 +33,9 @@ void MainWindow::on_pushButton_clicked()//write
 
 void MainWindow::on_pushButton_2_clicked()//read
 {
-    QFile file("D:\\QTGUICPP\\QTCPPProjects\\QFile\\TextA.txt");
+    QString filter="All File(*.*);;Text File(*.txt);;XML File(*.xml)";
+     QString fileName=QFileDialog::getOpenFileName(this,"Open A File",QDir::homePath(),filter);
+    QFile file(fileName);
     if(!file.open(QFile::ReadOnly | QFile::Text)){
         QMessageBox::information(this,"File","File is not open");
     }
