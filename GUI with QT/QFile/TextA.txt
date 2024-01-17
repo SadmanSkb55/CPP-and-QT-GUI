@@ -1,0 +1,9 @@
+ QFile file("D:\\QTGUICPP\\QTCPPProjects\\QFile\\TextA.txt");
+    if(!file.open(QFile::WriteOnly | QFile::Text)){
+        QMessageBox::information(this,"File","File is not open");
+    }
+    QTextStream out(&file);
+    QString text=ui->plainTextEdit->toPlainText();
+    out<<text;
+    file.flush();
+    file.close();
