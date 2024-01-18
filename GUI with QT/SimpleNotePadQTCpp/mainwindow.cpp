@@ -6,6 +6,8 @@
 #include <QMessageBox>
 #include <QFont>
 #include <QFontDialog>
+#include <QColor>
+#include <QColorDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -119,5 +121,32 @@ void MainWindow::on_actionFont_triggered()
     if(ok){
         ui->textEdit->setFont(font);
     }else return;
+}
+
+
+void MainWindow::on_actionColor_triggered()
+{
+    QColor color=QColorDialog::getColor(Qt::white,this,"Choose Color");
+    if(color.isValid()){
+        ui->textEdit->setTextColor(color);
+    }
+}
+
+
+void MainWindow::on_actionBackground_Color_triggered()
+{
+    QColor color=QColorDialog::getColor(Qt::white,this,"Choose Color");
+    if(color.isValid()){
+        ui->textEdit->setTextBackgroundColor(color);
+    }
+}
+
+
+void MainWindow::on_actionBackground_Edit_Color_Text_triggered()
+{
+    QColor color=QColorDialog::getColor(Qt::white,this,"Choose Color");
+    if(color.isValid()){
+        ui->textEdit->setPalette(QPalette(color));
+    }
 }
 
