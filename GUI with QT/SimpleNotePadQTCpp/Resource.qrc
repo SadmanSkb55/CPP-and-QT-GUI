@@ -12,9 +12,5 @@
         <file>Img/information-button.png</file>
         <file>Img/paste.png</file>
         <file>Img/font.png</file>
-        <file>Img/color-circle.png</file>
-    </qresource>
-    <qresource prefix="/img2">
-        <file>Img/color-circle.png</file>
     </qresource>
 </RCC>

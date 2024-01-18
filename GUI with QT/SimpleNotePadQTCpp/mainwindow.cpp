@@ -8,6 +8,9 @@
 #include <QFontDialog>
 #include <QColor>
 #include <QColorDialog>
+#include<QPrinter>
+#include<QPrintDialog>
+#include<QDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -148,5 +151,15 @@ void MainWindow::on_actionBackground_Edit_Color_Text_triggered()
     if(color.isValid()){
         ui->textEdit->setPalette(QPalette(color));
     }
+}
+
+
+void MainWindow::on_actionPrint_triggered()
+{
+    QPrinter printer;
+    printer.setPrinterName("Choose Printer");
+    QPrintDialog dialogue(&printer,this);
+    if(dialogue.exec()==QDialog::Rejected) return;
+    ui->textEdit->print(&printer);
 }
 
