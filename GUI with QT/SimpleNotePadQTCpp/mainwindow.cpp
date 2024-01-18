@@ -4,6 +4,8 @@
 #include <QFileDialog>
 #include <QTextStream>
 #include <QMessageBox>
+#include <QFont>
+#include <QFontDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -107,5 +109,15 @@ void MainWindow::on_actionAbout_Notepad_triggered()
     About+="Notepad\n";
     About+="You can write and read with it\n";
     QMessageBox::about(this,"About Notepad",About);
+}
+
+
+void MainWindow::on_actionFont_triggered()
+{
+    bool ok;
+    QFont font=QFontDialog::getFont(&ok,this);
+    if(ok){
+        ui->textEdit->setFont(font);
+    }else return;
 }
 

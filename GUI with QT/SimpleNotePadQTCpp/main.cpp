@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "splashscreen.h"
 
 #include <QApplication>
 

@@ -50,6 +50,8 @@
     <addaction name="separator"/>
     <addaction name="actionRedo"/>
     <addaction name="actionUndo"/>
+    <addaction name="separator"/>
+    <addaction name="actionFont"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -83,6 +85,8 @@
    <addaction name="separator"/>
    <addaction name="actionRedo"/>
    <addaction name="actionUndo"/>
+   <addaction name="separator"/>
+   <addaction name="actionFont"/>
   </widget>
   <action name="actionNew">
    <property name="icon">
@@ -172,6 +176,15 @@
    </property>
    <property name="text">
     <string>Paste</string>
+   </property>
+  </action>
+  <action name="actionFont">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/img/Img/font.png</normaloff>:/img/Img/font.png</iconset>
+   </property>
+   <property name="text">
+    <string>Font</string>
    </property>
   </action>
  </widget>

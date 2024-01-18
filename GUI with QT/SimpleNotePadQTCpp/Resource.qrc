@@ -11,5 +11,6 @@
         <file>Img/undo-circular-arrow.png</file>
         <file>Img/information-button.png</file>
         <file>Img/paste.png</file>
+        <file>Img/font.png</file>
     </qresource>
 </RCC>
