@@ -24,7 +24,7 @@ void MainWindow::on_pushButton_clicked()
 {
     secondWindow=new SecondWindow(this);
     secondWindow->show();
-    secondWindow->exec();
+   // secondWindow->exec();
      //close();
 }
 
