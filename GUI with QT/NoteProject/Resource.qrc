@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>Image/Gunna.gif</file>
+    </qresource>
+</RCC>

@@ -24,6 +24,7 @@ public:
         if (SecondWindow->objectName().isEmpty())
             SecondWindow->setObjectName("SecondWindow");
         SecondWindow->resize(897, 501);
+        SecondWindow->setStyleSheet(QString::fromUtf8("background-color: rgb(20, 20, 20);"));
 
         retranslateUi(SecondWindow);
 
