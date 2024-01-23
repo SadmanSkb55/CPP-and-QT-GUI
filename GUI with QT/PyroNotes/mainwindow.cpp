@@ -7,13 +7,18 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+   //setStyleSheet("QMainWindow::title {background-color: black; border: 1px solid black;}");
+    setWindowTitle("Pyro Notes");
+    setWindowIcon(QIcon(":/Image/Image/Logo 1.jpg"));
+
     setFixedSize(640,400);
     QMovie* movie = new QMovie(":/Image/Image/Gunna.gif");
     ui->label_pic->setMovie(movie);
     movie->start();
-    // int w = movie->frameRect().width();
-    // int h = movie->frameRect().height();
     ui->label_pic->setFixedSize(561, 251);
+
+
 }
 
 MainWindow::~MainWindow()
@@ -23,8 +28,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    secwin=new SecondWindow(this);
-    secwin->show();
+    notewin=new NoteWindow(this);
+    notewin->show();
     hide();
 }
 

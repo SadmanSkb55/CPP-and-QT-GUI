@@ -1,5 +1,34 @@
 <RCC>
     <qresource prefix="/Image">
         <file>Image/Gunna.gif</file>
+        <file>Image/Logo 1.jpg</file>
+        <file>Image/Logo 2.jpg</file>
+        <file>Image/add-document.png</file>
+        <file>Image/browser.png</file>
+        <file>Image/brush.png</file>
+        <file>Image/circular-arrow.png</file>
+        <file>Image/code.png</file>
+        <file>Image/color-circle (1).png</file>
+        <file>Image/cutting.png</file>
+        <file>Image/diskette (1).png</file>
+        <file>Image/edit.png</file>
+        <file>Image/files.png</file>
+        <file>Image/find (1).png</file>
+        <file>Image/find.png</file>
+        <file>Image/floppy.png</file>
+        <file>Image/folder (1).png</file>
+        <file>Image/gmail.png</file>
+        <file>Image/highlighter.png</file>
+        <file>Image/paste (1).png</file>
+        <file>Image/redo.png</file>
+        <file>Image/size.png</file>
+        <file>Image/technology.png</file>
+        <file>Image/text-file.png</file>
+        <file>Image/text-to-speech (1).png</file>
+        <file>Image/text-to-speech.png</file>
+        <file>Image/translate.png</file>
+        <file>Image/undo.png</file>
+        <file>Image/zoom.png</file>
+        <file>Image/new-window.png</file>
     </qresource>
 </RCC>

@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "secondwindow.h"
+#include "notewindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -23,6 +23,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    SecondWindow *secwin;
+    NoteWindow *notewin;
 };
 #endif // MAINWINDOW_H
