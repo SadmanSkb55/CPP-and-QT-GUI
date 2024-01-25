@@ -23,6 +23,9 @@ public:
     void redoText();
     void undoText();
     void setFontTextEdit(const QFont &font);
+    void setTextColor(const QColor &color);
+    void setTextHighlightColor(const QColor &color);
+    void setTextBackgroundColor(const QColor &color);
 
 private:
     Ui::Form *ui;

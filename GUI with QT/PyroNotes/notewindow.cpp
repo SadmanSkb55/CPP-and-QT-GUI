@@ -273,24 +273,59 @@ void NoteWindow::on_actionFont_triggered()
 
 void NoteWindow::on_actionColor_triggered()
 {
+    QColor color = QColorDialog::getColor(Qt::white, this, "Choose Color");
+    if (color.isValid())
+    {
+        int currentIndex = ui->tabWidget->currentIndex();
+        QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
+        Form *currentForm = qobject_cast<Form *>(currentTabWidget);
 
+        if (currentForm)
+        {
+            currentForm->setTextColor(color);
+        }
+    }
 }
-
 
 void NoteWindow::on_actionHighlighter_triggered()
 {
+    QColor color = QColorDialog::getColor(Qt::white, this, "Choose Color");
+    if (color.isValid())
+    {
+        int currentIndex = ui->tabWidget->currentIndex();
+        QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
+        Form *currentForm = qobject_cast<Form *>(currentTabWidget);
 
+        if (currentForm)
+        {
+            currentForm->setTextHighlightColor(color);
+        }
+    }
 }
-
 
 void NoteWindow::on_actionBackground_Color_triggered()
 {
+    QColor color = QColorDialog::getColor(Qt::white, this, "Choose Color");
+    if (color.isValid())
+    {
+        int currentIndex = ui->tabWidget->currentIndex();
+        QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
+        Form *currentForm = qobject_cast<Form *>(currentTabWidget);
 
+        if (currentForm)
+        {
+            currentForm->setTextBackgroundColor(color);
+        }
+    }
 }
 
 
 void NoteWindow::on_actionAbout_PyroNote_triggered()
 {
-
+    QString About="Author : Okita\n";
+    About+="Date: 25 Jan 2024\n";
+    About+="Pyro Notes\n";
+    About+="You can write and read with it\n";
+    QMessageBox::about(this,"About PyroNotes",About);
 }
 

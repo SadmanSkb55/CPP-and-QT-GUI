@@ -51,3 +51,17 @@ void Form::setFontTextEdit(const QFont &font)
 {
     ui->textEdit->setFont(font);
 }
+void Form::setTextColor(const QColor &color)
+{
+    ui->textEdit->setTextColor(color);
+}
+
+void Form::setTextHighlightColor(const QColor &color)
+{
+    ui->textEdit->setTextBackgroundColor(color);
+}
+
+void Form::setTextBackgroundColor(const QColor &color)
+{
+    ui->textEdit->setPalette(QPalette(color));
+}
