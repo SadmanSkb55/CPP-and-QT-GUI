@@ -52,6 +52,8 @@ private slots:
 
     void on_actionReplace_triggered();
 
+    void on_actionZoom_triggered();
+
 private:
     Ui::NoteWindow *ui;
     QString file_path;

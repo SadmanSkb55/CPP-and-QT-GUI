@@ -366,4 +366,22 @@ void NoteWindow::on_actionReplace_triggered()
     }
 }
 
+void NoteWindow::on_actionZoom_triggered()
+{
+    bool ok;
+    int zoomFactor = QInputDialog::getInt(this, "Zoom", "Enter zoom factor:", 100, 10, 500, 10, &ok);
+
+    if (ok)
+    {
+        int currentIndex = ui->tabWidget->currentIndex();
+        QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
+        Form *currentForm = qobject_cast<Form *>(currentTabWidget);
+
+        if (currentForm)
+        {
+            currentForm->setZoomFactor(zoomFactor);
+        }
+    }
+}
+
 

@@ -28,9 +28,11 @@ public:
     void setTextBackgroundColor(const QColor &color);
     void findAndHighlightText(const QString &searchText);
     void findAndReplaceText(const QString &searchText, const QString &replaceText);
+    void setZoomFactor(int factor);
 
 private:
     Ui::Form *ui;
+    int zoomFactor;
 };
 
 #endif // FORM_H

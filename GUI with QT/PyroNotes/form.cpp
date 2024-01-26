@@ -7,6 +7,7 @@ Form::Form(QWidget *parent)
     , ui(new Ui::Form)
 {
     ui->setupUi(this);
+   // zoomFactor = 100;
 }
 
 Form::~Form()
@@ -95,4 +96,10 @@ void Form::findAndReplaceText(const QString &searchText, const QString &replaceT
             cursor.insertText(replaceText);
         }
     }
+}
+void Form::setZoomFactor(int factor)
+{
+    QFont font = ui->textEdit->font();
+    font.setPointSize(factor);
+    ui->textEdit->setFont(font);
 }
