@@ -14,6 +14,7 @@
 #include<QDialog>
 #include<QDebug>
 #include <QTextDocument>
+#include <QInputDialog>
 
 
 NoteWindow::NoteWindow(QWidget *parent)
@@ -328,4 +329,41 @@ void NoteWindow::on_actionAbout_PyroNote_triggered()
     About+="You can write and read with it\n";
     QMessageBox::about(this,"About PyroNotes",About);
 }
+
+
+void NoteWindow::on_actionFind_triggered()
+{
+    int currentIndex = ui->tabWidget->currentIndex();
+    QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
+    Form *currentForm = qobject_cast<Form *>(currentTabWidget);
+
+    if (currentForm)
+    {
+        QString searchText = QInputDialog::getText(this, "Find", "Enter text to find:");
+
+        if (!searchText.isEmpty())
+        {
+            currentForm->findAndHighlightText(searchText);
+        }
+    }
+}
+
+void NoteWindow::on_actionReplace_triggered()
+{
+    int currentIndex = ui->tabWidget->currentIndex();
+    QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
+    Form *currentForm = qobject_cast<Form *>(currentTabWidget);
+
+    if (currentForm)
+    {
+        QString searchText = QInputDialog::getText(this, "Find", "Enter text to find:");
+        QString replaceText = QInputDialog::getText(this, "Replace", "Enter text to replace:");
+
+        if (!searchText.isEmpty())
+        {
+            currentForm->findAndReplaceText(searchText, replaceText);
+        }
+    }
+}
+
 

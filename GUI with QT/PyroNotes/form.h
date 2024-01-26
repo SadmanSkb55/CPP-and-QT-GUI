@@ -26,6 +26,8 @@ public:
     void setTextColor(const QColor &color);
     void setTextHighlightColor(const QColor &color);
     void setTextBackgroundColor(const QColor &color);
+    void findAndHighlightText(const QString &searchText);
+    void findAndReplaceText(const QString &searchText, const QString &replaceText);
 
 private:
     Ui::Form *ui;

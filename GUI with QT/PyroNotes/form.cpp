@@ -65,3 +65,34 @@ void Form::setTextBackgroundColor(const QColor &color)
 {
     ui->textEdit->setPalette(QPalette(color));
 }
+void Form::findAndHighlightText(const QString &searchText)
+{
+    QTextCursor cursor(ui->textEdit->document());
+    QTextCharFormat format;
+    format.setBackground(Qt::yellow);
+
+    while (!cursor.isNull() && !cursor.atEnd())
+    {
+        cursor = ui->textEdit->document()->find(searchText, cursor, QTextDocument::FindWholeWords);
+
+        if (!cursor.isNull())
+        {
+            cursor.mergeCharFormat(format);
+        }
+    }
+}
+
+void Form::findAndReplaceText(const QString &searchText, const QString &replaceText)
+{
+    QTextCursor cursor(ui->textEdit->document());
+
+    while (!cursor.isNull() && !cursor.atEnd())
+    {
+        cursor = ui->textEdit->document()->find(searchText, cursor, QTextDocument::FindWholeWords);
+
+        if (!cursor.isNull())
+        {
+            cursor.insertText(replaceText);
+        }
+    }
+}

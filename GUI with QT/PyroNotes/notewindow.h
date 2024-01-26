@@ -48,6 +48,10 @@ private slots:
 
     void on_actionAbout_PyroNote_triggered();
 
+    void on_actionFind_triggered();
+
+    void on_actionReplace_triggered();
+
 private:
     Ui::NoteWindow *ui;
     QString file_path;

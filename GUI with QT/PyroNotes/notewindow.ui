@@ -77,6 +77,8 @@ background-color: rgb(0, 0, 0);</string>
     <addaction name="separator"/>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
+    <addaction name="actionFind"/>
+    <addaction name="actionReplace"/>
    </widget>
    <widget class="QMenu" name="menuTexture">
     <property name="title">
@@ -258,6 +260,24 @@ background-color: rgb(0, 0, 0);</string>
    </property>
    <property name="text">
     <string>New Tab</string>
+   </property>
+  </action>
+  <action name="actionFind">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/find.png</normaloff>:/Image/Image/find.png</iconset>
+   </property>
+   <property name="text">
+    <string>Find</string>
+   </property>
+  </action>
+  <action name="actionReplace">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/find (1).png</normaloff>:/Image/Image/find (1).png</iconset>
+   </property>
+   <property name="text">
+    <string>Replace</string>
    </property>
   </action>
  </widget>
