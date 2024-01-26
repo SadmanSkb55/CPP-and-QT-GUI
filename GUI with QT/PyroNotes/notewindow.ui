@@ -94,9 +94,18 @@ background-color: rgb(0, 0, 0);</string>
     </property>
     <addaction name="actionAbout_PyroNote"/>
    </widget>
+   <widget class="QMenu" name="menuAdvanced">
+    <property name="title">
+     <string>Advanced</string>
+    </property>
+    <addaction name="actionText_To_Speech"/>
+    <addaction name="actionOpen_Browser"/>
+    <addaction name="actionSend_this_by_Mail"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuTexture"/>
+   <addaction name="menuAdvanced"/>
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -248,6 +257,10 @@ background-color: rgb(0, 0, 0);</string>
    </property>
   </action>
   <action name="actionAbout_PyroNote">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/information.png</normaloff>:/Image/Image/information.png</iconset>
+   </property>
    <property name="text">
     <string>About PyroNote</string>
    </property>
@@ -286,6 +299,33 @@ background-color: rgb(0, 0, 0);</string>
    </property>
    <property name="text">
     <string>Zoom</string>
+   </property>
+  </action>
+  <action name="actionText_To_Speech">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/text-to-speech.png</normaloff>:/Image/Image/text-to-speech.png</iconset>
+   </property>
+   <property name="text">
+    <string>Text To Speech</string>
+   </property>
+  </action>
+  <action name="actionOpen_Browser">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/browser.png</normaloff>:/Image/Image/browser.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open Browser</string>
+   </property>
+  </action>
+  <action name="actionSend_this_by_Mail">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/send-mail.png</normaloff>:/Image/Image/send-mail.png</iconset>
+   </property>
+   <property name="text">
+    <string>Send this by Mail</string>
    </property>
   </action>
  </widget>

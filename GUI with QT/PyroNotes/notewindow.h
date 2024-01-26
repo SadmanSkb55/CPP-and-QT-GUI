@@ -2,7 +2,7 @@
 #define NOTEWINDOW_H
 
 #include <QMainWindow>
-
+#include <QTextToSpeech>
 namespace Ui {
 class NoteWindow;
 }
@@ -54,9 +54,16 @@ private slots:
 
     void on_actionZoom_triggered();
 
+    void on_actionText_To_Speech_triggered();
+
+    void on_actionOpen_Browser_triggered();
+
+
 private:
     Ui::NoteWindow *ui;
     QString file_path;
+    QTextToSpeech textToSpeech;
+    void openWebPage(const QString &url);
 };
 
 #endif // NOTEWINDOW_H

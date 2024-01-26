@@ -15,7 +15,10 @@
 #include<QDebug>
 #include <QTextDocument>
 #include <QInputDialog>
-
+#include <QTextToSpeech>
+#include<QThread>
+#include <QDesktopServices>
+#include <QUrl>
 
 NoteWindow::NoteWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -384,4 +387,75 @@ void NoteWindow::on_actionZoom_triggered()
     }
 }
 
+
+void NoteWindow::on_actionText_To_Speech_triggered()
+{
+    int currentIndex = ui->tabWidget->currentIndex();
+    QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
+    Form *currentForm = qobject_cast<Form *>(currentTabWidget);
+
+    if (currentForm)
+    {
+        QString textToRead = currentForm->getTextEditContent();
+
+        if (!textToRead.isEmpty())
+        {
+            QTextToSpeech textToSpeech;
+            // textToSpeech.setEngine("sapi"); // Uncomment this line if necessary
+
+            // Check available voices
+            QList<QVoice> voices = textToSpeech.availableVoices();
+            qDebug() << "Available Voices:";
+            for (const QVoice &voice : voices)
+                qDebug() << " - " << voice.name();
+
+            // Set a voice if needed (optional)
+            if (!voices.isEmpty())
+            {
+                textToSpeech.setVoice(voices.first());
+                qDebug() << "Selected Voice:" << voices.first().name();
+            }
+            else
+            {
+                qDebug() << "No available voices.";
+            }
+
+            // Set the text to be spoken
+            textToSpeech.say(textToRead);
+
+            // Check for errors
+            QTextToSpeech::State state = textToSpeech.state();
+            if (state == QTextToSpeech::Error)
+            {
+                qDebug() << "Error in TextToSpeech:" << textToSpeech.errorString();
+            }
+            else
+            {
+                qDebug() << "Text to Speech initiated.";
+                // You can add additional logic here if needed
+            }
+        }
+    }
+}
+
+void NoteWindow::on_actionOpen_Browser_triggered()
+{
+    openWebPage("https://www.google.com");
+}
+
+void NoteWindow::openWebPage(const QString &url)
+{
+    QUrl webpage(url);
+
+    if (!QDesktopServices::openUrl(webpage))
+    {
+        // Handle the case when the URL can't be opened
+        qDebug() << "Could not open URL: " << url;
+    }
+}
+
+void NoteWindow::on_actionSend_this_by_Mail_triggered()
+{
+
+}
 
