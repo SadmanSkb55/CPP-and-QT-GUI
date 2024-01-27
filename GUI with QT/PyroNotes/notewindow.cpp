@@ -19,6 +19,7 @@
 #include<QThread>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QInputDialog>
 
 NoteWindow::NoteWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -401,7 +402,7 @@ void NoteWindow::on_actionText_To_Speech_triggered()
         if (!textToRead.isEmpty())
         {
             QTextToSpeech textToSpeech;
-            // textToSpeech.setEngine("sapi"); // Uncomment this line if necessary
+           // textToSpeech.setEngine("sapi"); // Uncomment this line if necessary
 
             // Check available voices
             QList<QVoice> voices = textToSpeech.availableVoices();
@@ -454,8 +455,48 @@ void NoteWindow::openWebPage(const QString &url)
     }
 }
 
+
+
 void NoteWindow::on_actionSend_this_by_Mail_triggered()
 {
+    int currentIndex = ui->tabWidget->currentIndex();
+    QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
+    Form *currentForm = qobject_cast<Form *>(currentTabWidget);
 
+    if (currentForm)
+    {
+        QString recipient = QInputDialog::getText(this, "Enter Recipient", "Enter the recipient's email address:");
+        if (recipient.isEmpty())
+        {
+            // User canceled or entered an empty email address
+            return;
+        }
+
+        QString subject = QInputDialog::getText(this, "Enter Subject", "Enter the email subject:");
+        if (subject.isEmpty())
+        {
+            // User canceled or entered an empty subject
+            return;
+        }
+
+        QString body = currentForm->getTextEditContent();
+
+        // Check if the body is empty
+        if (body.isEmpty())
+        {
+            QMessageBox::warning(this, "Empty Content", "Cannot send an empty email.");
+            return;
+        }
+
+        // Construct a mailto URL
+        QString mailtoUrl = QString("mailto:%1?subject=%2&body=%3")
+                                .arg(recipient)
+                                .arg(QUrl::toPercentEncoding(subject))
+                                .arg(QUrl::toPercentEncoding(body));
+
+        // Open the default email client
+        QDesktopServices::openUrl(QUrl(mailtoUrl));
+    }
 }
+
 

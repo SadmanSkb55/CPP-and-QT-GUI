@@ -14,6 +14,7 @@ class NoteWindow : public QMainWindow
 public:
     explicit NoteWindow(QWidget *parent = nullptr);
     ~NoteWindow();
+    void sendEmail(const QString& recipient, const QString& subject, const QString& body);
 
 private slots:
     void on_actionNew_Tab_triggered();
@@ -58,6 +59,10 @@ private slots:
 
     void on_actionOpen_Browser_triggered();
 
+
+
+
+    void on_actionSend_this_by_Mail_triggered();
 
 private:
     Ui::NoteWindow *ui;
