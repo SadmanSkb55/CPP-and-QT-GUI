@@ -20,6 +20,17 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QInputDialog>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QUrlQuery>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonArray>
+#include "form.h"
+#include "notewindow.h"
+class Form;
 
 NoteWindow::NoteWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -437,6 +448,9 @@ void NoteWindow::on_actionText_To_Speech_triggered()
             }
         }
     }
+    // QTextToSpeech textToSpeech;
+    // textToSpeech.say("Hello, this is a test.");
+    // qDebug()<<"Executed";
 }
 
 void NoteWindow::on_actionOpen_Browser_triggered()
@@ -498,5 +512,120 @@ void NoteWindow::on_actionSend_this_by_Mail_triggered()
         QDesktopServices::openUrl(QUrl(mailtoUrl));
     }
 }
+
+// void NoteWindow::on_actionTranslator_triggered()
+// {
+//     int currentIndex = ui->tabWidget->currentIndex();
+//     QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
+//     Form *currentForm = qobject_cast<Form *>(currentTabWidget);
+
+//     if (currentForm)
+//     {
+//         QString textToTranslate = currentForm->getTextEditContent();
+
+//         // Check if the text to translate is not empty
+//         if (!textToTranslate.isEmpty())
+//         {
+//             // Use Google Translate URL
+//             QUrl googleTranslateUrl("https://translate.google.com");
+
+//             // Set up the query parameters
+//             QUrlQuery query;
+//             query.addQueryItem("text", textToTranslate);
+
+//             googleTranslateUrl.setQuery(query);
+
+//             // Open the default web browser with the Google Translate URL
+//             QDesktopServices::openUrl(googleTranslateUrl);
+//         }
+//     }
+// }
+void NoteWindow::on_actionTranslator_triggered()
+{
+    // Get the text to translate
+    int currentIndex = ui->tabWidget->currentIndex();
+    QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
+    Form *currentForm = qobject_cast<Form *>(currentTabWidget);
+
+    if (currentForm)
+    {
+        QString textToTranslate = currentForm->getTextEditContent();
+
+        // Check if the text to translate is not empty
+        if (!textToTranslate.isEmpty())
+        {
+            // Use Google Translate URL
+            QUrl googleTranslateUrl("https://translate.googleapis.com/translate_a/single");
+
+            // Set up the query parameters
+            QUrlQuery query;
+            query.addQueryItem("client", "gtx");
+            query.addQueryItem("ie", "UTF-8");
+            query.addQueryItem("oe", "UTF-8");
+            query.addQueryItem("dt", "t");
+            query.addQueryItem("dj", "1");
+            query.addQueryItem("q", textToTranslate);
+            query.addQueryItem("sl", "en");  // Source language (English)
+            query.addQueryItem("tl", "es");  // Target language (Spanish)
+
+            googleTranslateUrl.setQuery(query);
+
+            // Create a network manager to handle the request
+            QNetworkAccessManager *networkManager = new QNetworkAccessManager(this);
+            connect(networkManager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply) {
+                onTranslationReplyFinished(reply, currentForm);
+            });
+
+            // Make the network request
+            QNetworkRequest request(googleTranslateUrl);
+            networkManager->get(request);
+        }
+    }
+}
+
+void NoteWindow::onTranslationReplyFinished(QNetworkReply *reply, Form *currentForm)
+{
+    if (reply->error() == QNetworkReply::NoError)
+    {
+        // Parse the JSON response
+        QJsonDocument jsonResponse = QJsonDocument::fromJson(reply->readAll());
+        QJsonObject jsonObject = jsonResponse.object();
+
+        // Print the entire JSON response for debugging
+        qDebug() << "JSON Response:" << jsonResponse.toJson(QJsonDocument::Indented);
+
+        // Access the nested values correctly
+        QJsonArray translationsArray = jsonObject["data"].toObject()["translations"].toArray();
+
+        // Check if the array is not empty
+        if (!translationsArray.isEmpty())
+        {
+            QJsonValue translatedTextValue = translationsArray[0].toObject()["translatedText"];
+            QString translatedText = translatedTextValue.toString();
+
+            // Update the text in the Form
+            currentForm->setTextEditContent(translatedText);
+        }
+        else
+        {
+            // Handle the case when the translations array is empty
+            qDebug() << "Empty translations array.";
+        }
+    }
+    else
+    {
+        // Handle error
+        QMessageBox::warning(this, "Translation Error", "Failed to translate. Check your internet connection.");
+    }
+
+    // Clean up the reply object
+    reply->deleteLater();
+}
+
+
+
+
+
+
 
 

@@ -2,6 +2,7 @@
 #include "ui_form.h"
 #include<QDebug>
 #include<QTextToSpeech>
+#include "notewindow.h"
 
 Form::Form(QWidget *parent)
     : QWidget(parent)

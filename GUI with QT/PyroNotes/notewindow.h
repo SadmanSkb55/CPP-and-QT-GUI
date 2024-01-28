@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QTextToSpeech>
+#include <QNetworkReply>
+#include "form.h"
 namespace Ui {
 class NoteWindow;
 }
@@ -59,10 +61,13 @@ private slots:
 
     void on_actionOpen_Browser_triggered();
 
-
-
-
     void on_actionSend_this_by_Mail_triggered();
+
+    void on_actionTranslator_triggered();
+
+    //void onTranslationReplyFinished(QNetworkReply *reply);
+
+    void onTranslationReplyFinished(QNetworkReply *reply, Form *currentForm);
 
 private:
     Ui::NoteWindow *ui;
