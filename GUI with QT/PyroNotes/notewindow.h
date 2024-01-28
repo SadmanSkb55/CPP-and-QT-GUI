@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QTextToSpeech>
 #include <QNetworkReply>
-#include "form.h"
+//#include "form.h"
 namespace Ui {
 class NoteWindow;
 }
@@ -67,7 +67,7 @@ private slots:
 
     //void onTranslationReplyFinished(QNetworkReply *reply);
 
-    void onTranslationReplyFinished(QNetworkReply *reply, Form *currentForm);
+   // void onTranslationReplyFinished(QNetworkReply *reply, Form *currentForm);
 
 private:
     Ui::NoteWindow *ui;

@@ -1,0 +1,93 @@
+
+
+
+
+// void NoteWindow::on_actionTranslator_triggered()
+// {
+//     // Get the text to translate
+//     int currentIndex = ui->tabWidget->currentIndex();
+//     QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
+//     Form *currentForm = qobject_cast<Form *>(currentTabWidget);
+
+//     if (currentForm)
+//     {
+//         QString textToTranslate = currentForm->getTextEditContent();
+
+//         // Check if the text to translate is not empty
+//         if (!textToTranslate.isEmpty())
+//         {
+//             // Use Google Translate URL
+//             QUrl googleTranslateUrl("https://translate.googleapis.com/translate_a/single");
+
+//             // Set up the query parameters
+//             QUrlQuery query;
+//             query.addQueryItem("client", "gtx");
+//             query.addQueryItem("ie", "UTF-8");
+//             query.addQueryItem("oe", "UTF-8");
+//             query.addQueryItem("dt", "t");
+//             query.addQueryItem("dj", "1");
+//             query.addQueryItem("q", textToTranslate);
+//             query.addQueryItem("sl", "en");  // Source language (English)
+//             query.addQueryItem("tl", "es");  // Target language (Spanish)
+
+//             googleTranslateUrl.setQuery(query);
+
+//             // Create a network manager to handle the request
+//             QNetworkAccessManager *networkManager = new QNetworkAccessManager(this);
+//             connect(networkManager, &QNetworkAccessManager::finished, [=](QNetworkReply *reply) {
+//                 onTranslationReplyFinished(reply, currentForm);
+//             });
+
+//             // Make the network request
+//             QNetworkRequest request(googleTranslateUrl);
+//             networkManager->get(request);
+//         }
+//     }
+// }
+
+// void NoteWindow::onTranslationReplyFinished(QNetworkReply *reply, Form *currentForm)
+// {
+//     if (reply->error() == QNetworkReply::NoError)
+//     {
+//         // Parse the JSON response
+//         QJsonDocument jsonResponse = QJsonDocument::fromJson(reply->readAll());
+//         QJsonObject jsonObject = jsonResponse.object();
+
+//         // Print the entire JSON response for debugging
+//         qDebug() << "JSON Response:" << jsonResponse.toJson(QJsonDocument::Indented);
+
+//         // Access the nested values correctly
+//         QJsonArray translationsArray = jsonObject["data"].toObject()["translations"].toArray();
+
+//         // Check if the array is not empty
+//         if (!translationsArray.isEmpty())
+//         {
+//             QJsonValue translatedTextValue = translationsArray[0].toObject()["translatedText"];
+//             QString translatedText = translatedTextValue.toString();
+
+//             // Update the text in the Form
+//             currentForm->setTextEditContent(translatedText);
+//         }
+//         else
+//         {
+//             // Handle the case when the translations array is empty
+//             qDebug() << "Empty translations array.";
+//         }
+//     }
+//     else
+//     {
+//         // Handle error
+//         QMessageBox::warning(this, "Translation Error", "Failed to translate. Check your internet connection.");
+//     }
+
+//     // Clean up the reply object
+//     reply->deleteLater();
+// }
+
+
+
+
+
+
+
+
