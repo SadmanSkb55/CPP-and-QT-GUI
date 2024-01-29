@@ -102,6 +102,9 @@ background-color: rgb(0, 0, 0);</string>
     <addaction name="actionOpen_Browser"/>
     <addaction name="actionSend_this_by_Mail"/>
     <addaction name="actionTranslator"/>
+    <addaction name="actionSpeech_to_Text"/>
+    <addaction name="actionText_Generator"/>
+    <addaction name="actionRun"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -336,6 +339,33 @@ background-color: rgb(0, 0, 0);</string>
    </property>
    <property name="text">
     <string>Translator </string>
+   </property>
+  </action>
+  <action name="actionSpeech_to_Text">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/text-to-speech (1).png</normaloff>:/Image/Image/text-to-speech (1).png</iconset>
+   </property>
+   <property name="text">
+    <string>Speech to Text</string>
+   </property>
+  </action>
+  <action name="actionText_Generator">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/text-file.png</normaloff>:/Image/Image/text-file.png</iconset>
+   </property>
+   <property name="text">
+    <string>Text Generator</string>
+   </property>
+  </action>
+  <action name="actionRun">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/code.png</normaloff>:/Image/Image/code.png</iconset>
+   </property>
+   <property name="text">
+    <string>Run</string>
    </property>
   </action>
  </widget>

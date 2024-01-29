@@ -30,11 +30,21 @@
 // #include <QJsonArray>
 // #include "form.h"
 // #include "notewindow.h"
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QNetworkRequest>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+
+
+
 //class Form;
 
 NoteWindow::NoteWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::NoteWindow)
+    , ui(new Ui::NoteWindow),
+     networkManager(new QNetworkAccessManager(this))
 {
     ui->setupUi(this);
 
@@ -45,6 +55,8 @@ NoteWindow::NoteWindow(QWidget *parent)
     ui->Home->layout()->addWidget(form1);
     Form *form2 = new Form();
     ui->tab_2->layout()->addWidget(form2);
+
+    networkManager = new QNetworkAccessManager(this);
 }
 
 NoteWindow::~NoteWindow()
@@ -539,5 +551,91 @@ void NoteWindow::on_actionTranslator_triggered()
             QDesktopServices::openUrl(googleTranslateUrl);
         }
     }
+}
+
+
+void NoteWindow::on_actionSpeech_to_Text_triggered()
+{
+
+}
+
+
+void NoteWindow::on_actionText_Generator_triggered()
+{
+    int currentIndex = ui->tabWidget->currentIndex();
+    QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
+    Form *currentForm = qobject_cast<Form *>(currentTabWidget);
+
+    if (currentForm)
+    {
+        QString prompt = QInputDialog::getText(this, "Text Generator", "Enter a prompt:");
+        if (!prompt.isEmpty())
+        {
+            generateText(prompt, currentForm); // Pass currentForm to the function
+        }
+    }
+}
+
+void NoteWindow::generateText(const QString &prompt, Form *currentForm)
+{
+    // Set up the API endpoint and request URL
+    QString apiUrl = "https://api.openai.com/v1/language/engines/davinci/completions";
+    QNetworkRequest request{ QUrl(apiUrl) };
+
+    // Set up the request headers
+    request.setRawHeader("Content-Type", "application/json");
+    request.setRawHeader("Authorization", "Bearer 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");
+
+    // Construct the request data
+    QByteArray requestData = QString("{\"prompt\": \"%1\"}").arg(prompt).toUtf8();
+
+    // Send the request
+    QNetworkReply *reply = networkManager->post(request, requestData);
+
+    // Connect the signal for handling the response
+    connect(reply, &QNetworkReply::finished, [=]() {
+        if (reply->error() == QNetworkReply::NoError)
+        {
+            // Parse and use the generated text from the reply
+            QString generatedText = QString(reply->readAll());
+            qDebug() << "Generated Text:" << generatedText;
+
+            // Display the generated text or use it as needed
+            if (currentForm)
+            {
+                currentForm->setTextEditContent(generatedText);
+            }
+        }
+        else
+        {
+            // Handle quota exceeded error
+            if (reply->errorString().contains("exceeded your current quota"))
+            {
+                qDebug() << "Error: Exceeded API quota. Please check your plan and billing details.";
+                qDebug() << "API Key:" << "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";  // Replace with your actual API key
+                qDebug() << "Request URL:" << apiUrl;
+                qDebug() << "Request Data:" << requestData;
+
+            }
+            else
+            {
+                // Log other errors
+                qDebug() << "Error in text generation. Error Code:" << reply->error();
+                qDebug() << "Error Description:" << reply->errorString();
+                qDebug() << "API Key:" << "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";  // Replace with your actual API key
+                qDebug() << "Request URL:" << apiUrl;
+                qDebug() << "Request Data:" << requestData;
+
+            }
+        }
+
+        // Clean up the reply object
+        reply->deleteLater();
+    });
+
+}
+void NoteWindow::on_actionRun_triggered()
+{
+
 }
 

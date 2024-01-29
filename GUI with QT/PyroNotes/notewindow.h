@@ -4,7 +4,14 @@
 #include <QMainWindow>
 #include <QTextToSpeech>
 #include <QNetworkReply>
-//#include "form.h"
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QInputDialog>
+#include <QDebug>
+
+#include "form.h"
+
 namespace Ui {
 class NoteWindow;
 }
@@ -17,6 +24,7 @@ public:
     explicit NoteWindow(QWidget *parent = nullptr);
     ~NoteWindow();
     void sendEmail(const QString& recipient, const QString& subject, const QString& body);
+     void generateText(const QString &prompt, Form *currentForm);
 
 private slots:
     void on_actionNew_Tab_triggered();
@@ -69,11 +77,21 @@ private slots:
 
    // void onTranslationReplyFinished(QNetworkReply *reply, Form *currentForm);
 
+    void on_actionSpeech_to_Text_triggered();
+
+    void on_actionText_Generator_triggered();
+
+    void on_actionRun_triggered();
+
+    //void generateText(const QString &prompt, Form *currentForm);
+
+
 private:
     Ui::NoteWindow *ui;
     QString file_path;
     QTextToSpeech textToSpeech;
     void openWebPage(const QString &url);
+     QNetworkAccessManager *networkManager;
 };
 
 #endif // NOTEWINDOW_H
