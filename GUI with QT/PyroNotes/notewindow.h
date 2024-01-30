@@ -9,6 +9,7 @@
 #include <QNetworkReply>
 #include <QInputDialog>
 #include <QDebug>
+#include <QProcess>
 
 #include "form.h"
 
@@ -25,6 +26,7 @@ public:
     ~NoteWindow();
     void sendEmail(const QString& recipient, const QString& subject, const QString& body);
      void generateText(const QString &prompt, Form *currentForm);
+     void openPowerShell(const QString &command);
 
 private slots:
     void on_actionNew_Tab_triggered();

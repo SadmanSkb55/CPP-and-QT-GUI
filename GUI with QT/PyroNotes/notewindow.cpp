@@ -615,6 +615,8 @@ void NoteWindow::generateText(const QString &prompt, Form *currentForm)
                 qDebug() << "API Key:" << "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";  // Replace with your actual API key
                 qDebug() << "Request URL:" << apiUrl;
                 qDebug() << "Request Data:" << requestData;
+                qDebug() << "Response Error Code:" << reply->error();
+                qDebug() << "Response Error Description:" << reply->errorString();
 
             }
             else
@@ -625,6 +627,8 @@ void NoteWindow::generateText(const QString &prompt, Form *currentForm)
                 qDebug() << "API Key:" << "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";  // Replace with your actual API key
                 qDebug() << "Request URL:" << apiUrl;
                 qDebug() << "Request Data:" << requestData;
+                qDebug() << "Response Error Code:" << reply->error();
+                qDebug() << "Response Error Description:" << reply->errorString();
 
             }
         }
@@ -634,8 +638,86 @@ void NoteWindow::generateText(const QString &prompt, Form *currentForm)
     });
 
 }
+
+
+
 void NoteWindow::on_actionRun_triggered()
 {
+    QString file_name = QFileDialog::getSaveFileName(this, "Save As");
+    file_path = file_name;
 
+    if (!file_name.isEmpty())
+    {
+        QFile file(file_name);
+        if (!file.open(QFile::WriteOnly | QFile::Text))
+        {
+            QMessageBox::information(this, "File", "File is not open");
+            return;
+        }
+
+        int currentIndex = ui->tabWidget->currentIndex();
+        QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
+        Form *currentForm = qobject_cast<Form *>(currentTabWidget);
+
+        if (currentForm)
+        {
+            QString text = currentForm->getTextEditContent();
+            QTextStream out(&file);
+            out << text;
+            file.flush();
+            file.close();
+            qDebug() << "Saved text:" << text;
+
+            // Determine the file extension
+            QFileInfo fileInfo(file_name);
+            QString fileExtension = fileInfo.suffix().toLower();
+
+            // Construct PowerShell command based on file type
+            QString powerShellCommand;
+            if (fileExtension == "py")
+            {
+                powerShellCommand = QString("python .\\%1").arg(fileInfo.fileName());
+            }
+            // Add more cases for other file types if needed
+
+            // Open PowerShell with the constructed command
+            openPowerShell(powerShellCommand);
+        }
+    }
 }
 
+void NoteWindow::openPowerShell(const QString &command)
+{
+    // Command to open PowerShell
+    QString powerShellCommand = "powershell.exe";
+
+    // Arguments to pass to PowerShell
+    QStringList arguments;
+    arguments << "-Command" << command;
+
+    // Create a QProcess instance
+    QProcess *powerShellProcess = new QProcess(this);
+
+    // Start PowerShell with arguments
+    powerShellProcess->start(powerShellCommand, arguments);
+
+    // Check if the process started successfully
+    if (!powerShellProcess->waitForStarted())
+    {
+        qDebug() << "Error starting PowerShell process:" << powerShellProcess->errorString();
+        return;
+    }
+
+    // Wait for the process to finish (optional)
+    powerShellProcess->waitForFinished();
+
+    // Read the output if needed
+    QByteArray output = powerShellProcess->readAllStandardOutput();
+    QByteArray errorOutput = powerShellProcess->readAllStandardError();
+
+    qDebug() << "PowerShell Output:" << output;
+    qDebug() << "PowerShell Error Output:" << errorOutput;
+
+    // Close the process
+    powerShellProcess->close();
+}
