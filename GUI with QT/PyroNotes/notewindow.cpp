@@ -579,12 +579,12 @@ void NoteWindow::on_actionText_Generator_triggered()
 void NoteWindow::generateText(const QString &prompt, Form *currentForm)
 {
     // Set up the API endpoint and request URL
-    QString apiUrl = "https://api.openai.com/v1/language/engines/davinci/completions";
+    QString apiUrl = "https://api.openai.com/v1/chat/completions";
     QNetworkRequest request{ QUrl(apiUrl) };
 
     // Set up the request headers
     request.setRawHeader("Content-Type", "application/json");
-    request.setRawHeader("Authorization", "Bearer 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");
+    request.setRawHeader("Authorization", "Bearer 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");
 
     // Construct the request data
     QByteArray requestData = QString("{\"prompt\": \"%1\"}").arg(prompt).toUtf8();
@@ -612,7 +612,7 @@ void NoteWindow::generateText(const QString &prompt, Form *currentForm)
             if (reply->errorString().contains("exceeded your current quota"))
             {
                 qDebug() << "Error: Exceeded API quota. Please check your plan and billing details.";
-                qDebug() << "API Key:" << "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";  // Replace with your actual API key
+               // qDebug() << "API Key:" << "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";  // Replace with your actual API key
                 qDebug() << "Request URL:" << apiUrl;
                 qDebug() << "Request Data:" << requestData;
                 qDebug() << "Response Error Code:" << reply->error();
@@ -624,7 +624,7 @@ void NoteWindow::generateText(const QString &prompt, Form *currentForm)
                 // Log other errors
                 qDebug() << "Error in text generation. Error Code:" << reply->error();
                 qDebug() << "Error Description:" << reply->errorString();
-                qDebug() << "API Key:" << "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";  // Replace with your actual API key
+              //  qDebug() << "API Key:" << "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";  // Replace with your actual API key
                 qDebug() << "Request URL:" << apiUrl;
                 qDebug() << "Request Data:" << requestData;
                 qDebug() << "Response Error Code:" << reply->error();
