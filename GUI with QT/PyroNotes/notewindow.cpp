@@ -425,23 +425,40 @@ void NoteWindow::on_actionText_To_Speech_triggered()
         if (!textToRead.isEmpty())
         {
             QTextToSpeech textToSpeech;
-           // textToSpeech.setEngine("sapi"); // Uncomment this line if necessary
 
-            // Check available voices
             QList<QVoice> voices = textToSpeech.availableVoices();
-            qDebug() << "Available Voices:";
+            // qDebug() << "Available Voices:";
+            // for (const QVoice &voice : voices)
+            //     qDebug() << " - " << voice.name();
+
+            QString voiceInfo = "Available Voices:\n";
             for (const QVoice &voice : voices)
-                qDebug() << " - " << voice.name();
+                voiceInfo += " - " + voice.name() + "\n";
+
+            QMessageBox::information(this, "Available Voices", voiceInfo);
 
             // Set a voice if needed (optional)
             if (!voices.isEmpty())
             {
                 textToSpeech.setVoice(voices.first());
-                qDebug() << "Selected Voice:" << voices.first().name();
+                //qDebug() << "Selected Voice:" << voices.first().name();
+                QString selectedVoiceInfo = "Selected Voice: " + voices.first().name();
+                QMessageBox::information(this, "Selected Voice", selectedVoiceInfo);
+
             }
             else
             {
-                qDebug() << "No available voices.";
+               // qDebug() << "No available voices.";
+                QMessageBox::warning(this, "TextToSpeech", "No available voices.");
+               QString message = "Do You Want to Continue through website?";
+               QMessageBox::StandardButton reply = QMessageBox::question(this, "Speech", message, QMessageBox::Yes | QMessageBox::No);
+
+               if (reply == QMessageBox::Yes)
+               {
+                   // Open the specified website
+                   QDesktopServices::openUrl(QUrl("https://ttsreader.com/player/"));
+               }
+                return;
             }
 
             // Set the text to be spoken
@@ -451,12 +468,29 @@ void NoteWindow::on_actionText_To_Speech_triggered()
             QTextToSpeech::State state = textToSpeech.state();
             if (state == QTextToSpeech::Error)
             {
-                qDebug() << "Error in TextToSpeech:" << textToSpeech.errorString();
+                //qDebug() << "Error in TextToSpeech:" << textToSpeech.errorString();
+                QMessageBox::critical(this, "TextToSpeech Error", "Error in TextToSpeech:\n" + textToSpeech.errorString());
+                QString message = "Do You Want to Continue through website?";
+                QMessageBox::StandardButton reply = QMessageBox::question(this, "Speech", message, QMessageBox::Yes | QMessageBox::No);
+
+                if (reply == QMessageBox::Yes)
+                {
+                    // Open the specified website
+                    QDesktopServices::openUrl(QUrl("https://ttsreader.com/player/"));
+                }
             }
             else
             {
-                qDebug() << "Text to Speech initiated.";
-                // You can add additional logic here if needed
+                //qDebug() << "Text to Speech initiated.";
+               QMessageBox::information(this,"Speech","Speech Initiated:::DO NOT CLOSE IT UNTILL ALL COVERS UP");
+                QString message = "Text to Speech initiated. Do you hear it?";
+                QMessageBox::StandardButton reply = QMessageBox::question(this, "Speech", message, QMessageBox::Yes | QMessageBox::No);
+
+                if (reply == QMessageBox::No)
+                {
+                    // Open the specified website
+                    QDesktopServices::openUrl(QUrl("https://ttsreader.com/player/"));
+                }
             }
         }
     }
@@ -476,8 +510,8 @@ void NoteWindow::openWebPage(const QString &url)
 
     if (!QDesktopServices::openUrl(webpage))
     {
-        // Handle the case when the URL can't be opened
-        qDebug() << "Could not open URL: " << url;
+        QMessageBox::critical(this, "Error", "Could not open Browser:" + url);
+       // qDebug() << "Could not open URL: " << url;
     }
 }
 
@@ -494,20 +528,16 @@ void NoteWindow::on_actionSend_this_by_Mail_triggered()
         QString recipient = QInputDialog::getText(this, "Enter Recipient", "Enter the recipient's email address:");
         if (recipient.isEmpty())
         {
-            // User canceled or entered an empty email address
             return;
         }
 
         QString subject = QInputDialog::getText(this, "Enter Subject", "Enter the email subject:");
         if (subject.isEmpty())
         {
-            // User canceled or entered an empty subject
             return;
         }
 
         QString body = currentForm->getTextEditContent();
-
-        // Check if the body is empty
         if (body.isEmpty())
         {
             QMessageBox::warning(this, "Empty Content", "Cannot send an empty email.");
@@ -519,8 +549,6 @@ void NoteWindow::on_actionSend_this_by_Mail_triggered()
                                 .arg(recipient)
                                 .arg(QUrl::toPercentEncoding(subject))
                                 .arg(QUrl::toPercentEncoding(body));
-
-        // Open the default email client
         QDesktopServices::openUrl(QUrl(mailtoUrl));
     }
 }
@@ -534,20 +562,12 @@ void NoteWindow::on_actionTranslator_triggered()
     if (currentForm)
     {
         QString textToTranslate = currentForm->getTextEditContent();
-
-        // Check if the text to translate is not empty
         if (!textToTranslate.isEmpty())
         {
-            // Use Google Translate URL
             QUrl googleTranslateUrl("https://translate.google.com");
-
-            // Set up the query parameters
             QUrlQuery query;
             query.addQueryItem("text", textToTranslate);
-
             googleTranslateUrl.setQuery(query);
-
-            // Open the default web browser with the Google Translate URL
             QDesktopServices::openUrl(googleTranslateUrl);
         }
     }
@@ -568,7 +588,6 @@ void NoteWindow::on_actionText_Generator_triggered()
     int currentIndex = ui->tabWidget->currentIndex();
     QWidget *currentTabWidget = ui->tabWidget->widget(currentIndex);
     Form *currentForm = qobject_cast<Form *>(currentTabWidget);
-
     if (currentForm)
     {
         QString prompt = QInputDialog::getText(this, "Text Generator", "Enter a prompt:");
@@ -581,29 +600,17 @@ void NoteWindow::on_actionText_Generator_triggered()
 
 void NoteWindow::generateText(const QString &prompt, Form *currentForm)
 {
-    // Set up the API endpoint and request URL
     QString apiUrl = "https://api.openai.com/v1/chat/completions";
     QNetworkRequest request{ QUrl(apiUrl) };
-
-    // Set up the request headers
     request.setRawHeader("Content-Type", "application/json");
     request.setRawHeader("Authorization", "Bearer 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");
-
-    // Construct the request data
     QByteArray requestData = QString("{\"prompt\": \"%1\"}").arg(prompt).toUtf8();
-
-    // Send the request
     QNetworkReply *reply = networkManager->post(request, requestData);
-
-    // Connect the signal for handling the response
     connect(reply, &QNetworkReply::finished, [=]() {
         if (reply->error() == QNetworkReply::NoError)
         {
-            // Parse and use the generated text from the reply
             QString generatedText = QString(reply->readAll());
             qDebug() << "Generated Text:" << generatedText;
-
-            // Display the generated text or use it as needed
             if (currentForm)
             {
                 currentForm->setTextEditContent(generatedText);
@@ -611,32 +618,41 @@ void NoteWindow::generateText(const QString &prompt, Form *currentForm)
         }
         else
         {
-            // Handle quota exceeded error
             if (reply->errorString().contains("exceeded your current quota"))
             {
-                qDebug() << "Error: Exceeded API quota. Please check your plan and billing details.";
-               // qDebug() << "API Key:" << "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";  // Replace with your actual API key
-                qDebug() << "Request URL:" << apiUrl;
-                qDebug() << "Request Data:" << requestData;
-                qDebug() << "Response Error Code:" << reply->error();
-                qDebug() << "Response Error Description:" << reply->errorString();
+                QString errorMessage = "Error: Exceeded API quota. Please check your plan and billing details.\n\n"
+                                       "Request URL: " + apiUrl + "\n"
+                                                  "Request Data: " + requestData + "\n"
+                                                       "Response Error Code: " + QString::number(reply->error()) + "\n"
+                                                                           "Response Error Description: " + reply->errorString();
+                QMessageBox::critical(this, "API Quota Exceeded", errorMessage);
+                QString message = "Do you want to continue at website?";
+                QMessageBox::StandardButton reply = QMessageBox::question(this, "Text Generator", message, QMessageBox::Yes | QMessageBox::No);
 
+                if (reply == QMessageBox::Yes)
+                {
+                    QDesktopServices::openUrl(QUrl("https://chat.openai.com/"));
+                }
             }
             else
             {
-                // Log other errors
-                qDebug() << "Error in text generation. Error Code:" << reply->error();
-                qDebug() << "Error Description:" << reply->errorString();
-              //  qDebug() << "API Key:" << "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";  // Replace with your actual API key
-                qDebug() << "Request URL:" << apiUrl;
-                qDebug() << "Request Data:" << requestData;
-                qDebug() << "Response Error Code:" << reply->error();
-                qDebug() << "Response Error Description:" << reply->errorString();
+                QString errorMessage = "Error in text generation. Error Code: " + QString::number(reply->error()) + "\n"
+                                                                                                                    "Error Description: " + reply->errorString() + "\n"
+                                                                "Request URL: " + apiUrl + "\n"
+                                                  "Request Data: " + requestData + "\n"
+                                                       "Response Error Code: " + QString::number(reply->error()) + "\n"
+                                                                           "Response Error Description: " + reply->errorString();
+                QMessageBox::critical(this, "Text Generation Error", errorMessage);
+                QString message = "Do you want to continue at website?";
+                QMessageBox::StandardButton reply = QMessageBox::question(this, "Text Generator", message, QMessageBox::Yes | QMessageBox::No);
 
+                if (reply == QMessageBox::Yes)
+                {
+                    QDesktopServices::openUrl(QUrl("https://chat.openai.com/"));
+                }
             }
-        }
 
-        // Clean up the reply object
+        }
         reply->deleteLater();
     });
 
@@ -681,9 +697,7 @@ void NoteWindow::on_actionRun_triggered()
             {
                 powerShellCommand = QString("python .\\%1").arg(fileInfo.fileName());
             }
-            // Add more cases for other file types if needed
 
-            // Open PowerShell with the constructed command
             openPowerShell(powerShellCommand);
         }
     }
@@ -691,36 +705,33 @@ void NoteWindow::on_actionRun_triggered()
 
 void NoteWindow::openPowerShell(const QString &command)
 {
-    // Command to open PowerShell
     QString powerShellCommand = "powershell.exe";
-
-    // Arguments to pass to PowerShell
     QStringList arguments;
     arguments << "-Command" << command;
-
-    // Create a QProcess instance
     QProcess *powerShellProcess = new QProcess(this);
-
-    // Start PowerShell with arguments
     powerShellProcess->start(powerShellCommand, arguments);
-
-    // Check if the process started successfully
     if (!powerShellProcess->waitForStarted())
     {
-        qDebug() << "Error starting PowerShell process:" << powerShellProcess->errorString();
+        QString errorMessage = "Error starting PowerShell process:\n" + powerShellProcess->errorString();
+        QMessageBox::critical(this, "PowerShell Error", errorMessage);
         return;
     }
-
-    // Wait for the process to finish (optional)
     powerShellProcess->waitForFinished();
-
-    // Read the output if needed
     QByteArray output = powerShellProcess->readAllStandardOutput();
     QByteArray errorOutput = powerShellProcess->readAllStandardError();
 
-    qDebug() << "PowerShell Output:" << output;
-    qDebug() << "PowerShell Error Output:" << errorOutput;
+    // Display the PowerShell output
+    if (!output.isEmpty())
+    {
+        QMessageBox::information(this, "PowerShell Output", "PowerShell Output:\n" + output);
+    }
 
-    // Close the process
+    // Display the PowerShell error output
+    if (!errorOutput.isEmpty())
+    {
+        QMessageBox::warning(this, "PowerShell Error Output", "PowerShell Error Output:\n" + errorOutput);
+    }
+
     powerShellProcess->close();
 }
+

@@ -100,11 +100,11 @@ background-color: rgb(0, 0, 0);</string>
     </property>
     <addaction name="actionText_To_Speech"/>
     <addaction name="actionSpeech_to_Text"/>
-    <addaction name="actionRun"/>
+    <addaction name="actionText_Generator"/>
+    <addaction name="actionTranslator"/>
     <addaction name="actionOpen_Browser"/>
     <addaction name="actionSend_this_by_Mail"/>
-    <addaction name="actionTranslator"/>
-    <addaction name="actionText_Generator"/>
+    <addaction name="actionRun"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>

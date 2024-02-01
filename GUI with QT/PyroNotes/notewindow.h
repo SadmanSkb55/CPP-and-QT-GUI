@@ -94,6 +94,7 @@ private:
     QTextToSpeech textToSpeech;
     void openWebPage(const QString &url);
      QNetworkAccessManager *networkManager;
+
 };
 
 #endif // NOTEWINDOW_H
