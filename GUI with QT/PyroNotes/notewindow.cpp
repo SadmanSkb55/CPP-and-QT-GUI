@@ -556,8 +556,11 @@ void NoteWindow::on_actionTranslator_triggered()
 
 void NoteWindow::on_actionSpeech_to_Text_triggered()
 {
-
+    QMessageBox::information(this, "Speech to Text", "Click OK to access the speech-to-text service.We are currnetly not providing on Application Speech to text service.Sorry");
+    QUrl speechToTextUrl("https://speechnotes.co/dictate/");
+    QDesktopServices::openUrl(speechToTextUrl);
 }
+
 
 
 void NoteWindow::on_actionText_Generator_triggered()
