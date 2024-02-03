@@ -32,5 +32,6 @@
         <file>Image/new-window.png</file>
         <file>Image/information.png</file>
         <file>Image/send-mail.png</file>
+        <file>Image/table.png</file>
     </qresource>
 </RCC>

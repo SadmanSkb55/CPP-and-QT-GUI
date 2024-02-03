@@ -13,17 +13,20 @@ SOURCES += \
     form.cpp \
     main.cpp \
     mainwindow.cpp \
-    notewindow.cpp
+    notewindow.cpp \
+    table.cpp
 
 HEADERS += \
     form.h \
     mainwindow.h \
-    notewindow.h
+    notewindow.h \
+    table.h
 
 FORMS += \
     form.ui \
     mainwindow.ui \
-    notewindow.ui
+    notewindow.ui \
+    table.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -735,3 +735,9 @@ void NoteWindow::openPowerShell(const QString &command)
     powerShellProcess->close();
 }
 
+
+void NoteWindow::on_actionInsert_Table_triggered()
+{
+
+}
+
