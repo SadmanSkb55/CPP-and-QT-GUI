@@ -10,6 +10,7 @@
 #include <QInputDialog>
 #include <QDebug>
 #include <QProcess>
+#include <QTableWidget>
 
 #include "form.h"
 
@@ -88,12 +89,15 @@ private slots:
     //void generateText(const QString &prompt, Form *currentForm);
 
 
+    void on_actionInsert_Table_triggered();
+
 private:
     Ui::NoteWindow *ui;
     QString file_path;
     QTextToSpeech textToSpeech;
     void openWebPage(const QString &url);
      QNetworkAccessManager *networkManager;
+     QTableWidget *tableWidget;
 
 };
 

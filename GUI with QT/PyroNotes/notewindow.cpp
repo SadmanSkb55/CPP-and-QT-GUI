@@ -36,7 +36,7 @@
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-
+#include "table.h"
 
 
 //class Form;
@@ -738,6 +738,12 @@ void NoteWindow::openPowerShell(const QString &command)
 
 void NoteWindow::on_actionInsert_Table_triggered()
 {
+    Table *newTable = new Table(this);
 
+    // Add the table as a new tab
+    ui->tabWidget->addTab(newTable, QString("Table %0").arg(ui->tabWidget->count() + 1));
+
+    // Set the current index to the newly added tab
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->count() - 1);
 }
 
