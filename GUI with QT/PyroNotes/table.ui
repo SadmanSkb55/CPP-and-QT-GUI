@@ -60,6 +60,8 @@ border-color: rgb(0, 0, 0);</string>
     </property>
     <addaction name="actionAdd_Row"/>
     <addaction name="actionAdd_Column"/>
+    <addaction name="actionDelete_Row"/>
+    <addaction name="actionDelete_Column"/>
    </widget>
    <addaction name="menuOptions"/>
   </widget>
@@ -76,6 +78,10 @@ border-color: rgb(0, 0, 0);</string>
    </attribute>
    <addaction name="actionAdd_Row"/>
    <addaction name="actionAdd_Column"/>
+   <addaction name="separator"/>
+   <addaction name="separator"/>
+   <addaction name="actionDelete_Row"/>
+   <addaction name="actionDelete_Column"/>
   </widget>
   <action name="actionAdd_Row">
    <property name="icon">
@@ -93,6 +99,24 @@ border-color: rgb(0, 0, 0);</string>
    </property>
    <property name="text">
     <string>Add Column</string>
+   </property>
+  </action>
+  <action name="actionDelete_Row">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/delete.png</normaloff>:/Image/Image/delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete Row</string>
+   </property>
+  </action>
+  <action name="actionDelete_Column">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/delete (1).png</normaloff>:/Image/Image/delete (1).png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete Column</string>
    </property>
   </action>
  </widget>

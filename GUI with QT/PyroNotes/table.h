@@ -22,6 +22,13 @@ private slots:
 
     void on_actionAdd_Column_triggered();
 
+    void on_actionDelete_Row_triggered();
+
+    void on_actionDelete_Column_triggered();
+
+    void onCellClicked(int row, int column);
+
+
 private:
     Ui::Table *ui;
     QTableWidget *tableWidget;

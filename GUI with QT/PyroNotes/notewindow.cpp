@@ -741,7 +741,7 @@ void NoteWindow::on_actionInsert_Table_triggered()
     Table *newTable = new Table(this);
 
     // Add the table as a new tab
-    ui->tabWidget->addTab(newTable, QString("Table %0").arg(ui->tabWidget->count() + 1));
+    ui->tabWidget->addTab(newTable, QString("Tab %0(Table)").arg(ui->tabWidget->count() + 1));
 
     // Set the current index to the newly added tab
     ui->tabWidget->setCurrentIndex(ui->tabWidget->count() - 1);
