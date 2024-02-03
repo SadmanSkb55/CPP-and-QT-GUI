@@ -28,6 +28,10 @@ private slots:
 
     void onCellClicked(int row, int column);
 
+    void onRowClicked(int row);
+
+    void onColumnClicked(int column);
+
 
 private:
     Ui::Table *ui;

@@ -1,11 +1,21 @@
 #include "table.h"
 #include "ui_table.h"
+#include <QInputDialog>
 
 Table::Table(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Table)
 {
     ui->setupUi(this);
+
+    QStringList vLabels;
+    ui->tableWidget->setVerticalHeaderLabels(vLabels);
+
+    QStringList hLabels;
+    ui->tableWidget->setHorizontalHeaderLabels(hLabels);
+
+    connect(ui->tableWidget->verticalHeader(), &QHeaderView::sectionClicked, this, &Table::onRowClicked);
+
 }
 
 Table::~Table()
@@ -48,3 +58,22 @@ void Table::onCellClicked(int row, int column)
     Q_UNUSED(column);
 }
 
+void Table::onRowClicked(int row)
+{
+    QString newLabel = QInputDialog::getText(this, "Edit Row Label", "Enter new label:");
+
+    if (!newLabel.isEmpty())
+    {
+        ui->tableWidget->setVerticalHeaderItem(row, new QTableWidgetItem(newLabel));
+    }
+}
+
+void Table::onColumnClicked(int column)
+{
+    QString newLabel = QInputDialog::getText(this, "Edit Column Label", "Enter new label:");
+
+    if (!newLabel.isEmpty())
+    {
+        ui->tableWidget->setHorizontalHeaderItem(column, new QTableWidgetItem(newLabel));
+    }
+}
