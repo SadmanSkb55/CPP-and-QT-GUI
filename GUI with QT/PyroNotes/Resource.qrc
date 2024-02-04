@@ -43,5 +43,9 @@
         <file>Image/remove.png</file>
         <file>Image/plus.png</file>
         <file>Image/division.png</file>
+        <file>Image/database-storage.png</file>
+        <file>Image/LChart.png</file>
+        <file>Image/GSheets.png</file>
+        <file>Image/sketch.png</file>
     </qresource>
 </RCC>

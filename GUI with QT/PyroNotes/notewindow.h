@@ -91,6 +91,12 @@ private slots:
 
     void on_actionInsert_Table_triggered();
 
+    void on_actionOpen_Lucidchart_triggered();
+
+    void on_actionOpen_Google_Sheets_triggered();
+
+    void on_actionInsert_Sketch_Form_triggered();
+
 private:
     Ui::NoteWindow *ui;
     QString file_path;

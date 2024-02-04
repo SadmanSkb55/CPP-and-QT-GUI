@@ -111,6 +111,11 @@ background-color: rgb(0, 0, 0);</string>
      <string>Insert</string>
     </property>
     <addaction name="actionInsert_Table"/>
+    <addaction name="actionInsert_Sketch_Form"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionOpen_Lucidchart"/>
+    <addaction name="actionOpen_Google_Sheets"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -382,6 +387,33 @@ background-color: rgb(0, 0, 0);</string>
    </property>
    <property name="text">
     <string>Insert Table</string>
+   </property>
+  </action>
+  <action name="actionOpen_Lucidchart">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/LChart.png</normaloff>:/Image/Image/LChart.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open Lucidchart</string>
+   </property>
+  </action>
+  <action name="actionOpen_Google_Sheets">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/GSheets.png</normaloff>:/Image/Image/GSheets.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open Google Sheets</string>
+   </property>
+  </action>
+  <action name="actionInsert_Sketch_Form">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/sketch.png</normaloff>:/Image/Image/sketch.png</iconset>
+   </property>
+   <property name="text">
+    <string>Insert Sketch Form</string>
    </property>
   </action>
  </widget>

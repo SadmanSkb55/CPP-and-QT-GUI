@@ -37,6 +37,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include "table.h"
+#include "sketch.h"
 
 
 //class Form;
@@ -76,17 +77,11 @@ void NoteWindow::on_actionNew_triggered()
     file_path = " "; // Assuming you're resetting the file_path
 
     int currentIndex = ui->tabWidget->currentIndex();
-
-    // Access the widget at the current tab index
     QWidget* currentTabWidget = ui->tabWidget->widget(currentIndex);
-
-    // Check if the widget is of type Form
     Form* currentForm = qobject_cast<Form*>(currentTabWidget);
-
-    // If it's a Form widget, set the text of its textEdit
     if (currentForm)
     {
-        currentForm->setTextEditContent(" "); // Assuming you have a function in Form to set the text
+        currentForm->setTextEditContent(" ");
     }
 }
 
@@ -742,4 +737,21 @@ void NoteWindow::on_actionInsert_Table_triggered()
     ui->tabWidget->addTab(newTable, QString("Tab %0(Table)").arg(ui->tabWidget->count() + 1));
     ui->tabWidget->setCurrentIndex(ui->tabWidget->count() - 1);
 }
+
+void NoteWindow::on_actionOpen_Lucidchart_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://www.lucidchart.com/"));
+}
+
+void NoteWindow::on_actionOpen_Google_Sheets_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://sheets.google.com/"));
+}
+
+// void NoteWindow::on_actionInsert_Sketch_Form_triggered()
+// {
+//     Sketch *newSketch = new Sketch(this);
+//     ui->tabWidget->addTab(newSketch, QString("Tab %0(Sketch)").arg(ui->tabWidget->count() + 1));
+//     ui->tabWidget->setCurrentIndex(ui->tabWidget->count() - 1);
+// }
 
