@@ -58,10 +58,28 @@ border-color: rgb(0, 0, 0);</string>
     <property name="title">
      <string>Options</string>
     </property>
+    <widget class="QMenu" name="menuSort_Items">
+     <property name="title">
+      <string>Sort Items</string>
+     </property>
+     <addaction name="actionAscending"/>
+     <addaction name="actionDescending"/>
+    </widget>
+    <widget class="QMenu" name="menuCalculations">
+     <property name="title">
+      <string>Calculations</string>
+     </property>
+     <addaction name="actionAddition"/>
+     <addaction name="actionSubstraction"/>
+     <addaction name="actionMultiplication"/>
+     <addaction name="actionDivision"/>
+    </widget>
     <addaction name="actionAdd_Row"/>
     <addaction name="actionAdd_Column"/>
     <addaction name="actionDelete_Row"/>
     <addaction name="actionDelete_Column"/>
+    <addaction name="menuSort_Items"/>
+    <addaction name="menuCalculations"/>
    </widget>
    <addaction name="menuOptions"/>
   </widget>
@@ -117,6 +135,60 @@ border-color: rgb(0, 0, 0);</string>
    </property>
    <property name="text">
     <string>Delete Column</string>
+   </property>
+  </action>
+  <action name="actionAscending">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/sort-ascending.png</normaloff>:/Image/Image/sort-ascending.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ascending</string>
+   </property>
+  </action>
+  <action name="actionDescending">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/sort-descending.png</normaloff>:/Image/Image/sort-descending.png</iconset>
+   </property>
+   <property name="text">
+    <string>Descending</string>
+   </property>
+  </action>
+  <action name="actionAddition">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/plus.png</normaloff>:/Image/Image/plus.png</iconset>
+   </property>
+   <property name="text">
+    <string>Addition</string>
+   </property>
+  </action>
+  <action name="actionSubstraction">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/remove.png</normaloff>:/Image/Image/remove.png</iconset>
+   </property>
+   <property name="text">
+    <string>Substraction</string>
+   </property>
+  </action>
+  <action name="actionMultiplication">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/multiplication.png</normaloff>:/Image/Image/multiplication.png</iconset>
+   </property>
+   <property name="text">
+    <string>Multiplication</string>
+   </property>
+  </action>
+  <action name="actionDivision">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/division.png</normaloff>:/Image/Image/division.png</iconset>
+   </property>
+   <property name="text">
+    <string>Division</string>
    </property>
   </action>
  </widget>

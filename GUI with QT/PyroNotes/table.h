@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QTableWidget>
+#include<QHeaderView>
+
 
 
 namespace Ui {
@@ -31,6 +33,21 @@ private slots:
     void onRowClicked(int row);
 
     void onColumnClicked(int column);
+
+
+    void on_actionAscending_triggered();
+
+    void on_actionDescending_triggered();
+
+    void on_actionAddition_triggered();
+
+    void on_actionSubstraction_triggered();
+
+    void on_actionMultiplication_triggered();
+
+    void on_actionDivision_triggered();
+
+    void performArithmeticOperation(QChar op);
 
 
 private:

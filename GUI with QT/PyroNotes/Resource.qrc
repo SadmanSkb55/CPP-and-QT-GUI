@@ -37,5 +37,11 @@
         <file>Image/row.png</file>
         <file>Image/delete (1).png</file>
         <file>Image/delete.png</file>
+        <file>Image/sort-ascending.png</file>
+        <file>Image/sort-descending.png</file>
+        <file>Image/multiplication.png</file>
+        <file>Image/remove.png</file>
+        <file>Image/plus.png</file>
+        <file>Image/division.png</file>
     </qresource>
 </RCC>
