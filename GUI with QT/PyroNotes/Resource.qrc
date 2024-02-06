@@ -47,5 +47,12 @@
         <file>Image/LChart.png</file>
         <file>Image/GSheets.png</file>
         <file>Image/sketch.png</file>
+        <file>Image/cleaning.png</file>
+        <file>Image/delete (2).png</file>
+        <file>Image/paint-brush.png</file>
+        <file>Image/palette.png</file>
+        <file>Image/pencil.png</file>
+        <file>Image/pen-tip.png</file>
+        <file>Image/shapes.png</file>
     </qresource>
 </RCC>

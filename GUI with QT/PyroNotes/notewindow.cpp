@@ -753,7 +753,7 @@ void NoteWindow::on_actionOpen_Google_Sheets_triggered()
 
 void NoteWindow::on_actionInsert_Sketch_Form_triggered()
 {
-    qDebug() << "Insert Sketch Form triggered"; // Add this line for debugging
+   // qDebug() << "Insert Sketch Form triggered"; // Add this line for debugging
 
     Sketcher *newSketcher = new Sketcher(this);
     ui->tabWidget->addTab(newSketcher, QString("Tab %0(Sketcher)").arg(ui->tabWidget->count() + 1));

@@ -33,8 +33,26 @@ background-color: rgb(255, 255, 255);</string>
      <height>25</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionClear"/>
+   </widget>
+   <addaction name="menuOptions"/>
   </widget>
+  <action name="actionClear">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/cleaning.png</normaloff>:/Image/Image/cleaning.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clear</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="Resource.qrc"/>
+ </resources>
  <connections/>
 </ui>
