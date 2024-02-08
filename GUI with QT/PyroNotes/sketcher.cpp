@@ -14,7 +14,7 @@ Sketcher::Sketcher(QWidget *parent) :
     // Create a QGraphicsScene and set it as the scene for the view
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
-    // scene->setSceneRect(-500, -500, 1000, 1000);
+
 
     // Initialize currentLine to nullptr
     currentLine = nullptr;

@@ -14,13 +14,16 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 255, 255);</string>
+   <string notr="true">color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QGraphicsView" name="graphicsView"/>
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -37,6 +40,8 @@ background-color: rgb(255, 255, 255);</string>
     <property name="title">
      <string>Options</string>
     </property>
+    <addaction name="actionPen_Color"/>
+    <addaction name="actionPen_Width"/>
     <addaction name="actionClear"/>
    </widget>
    <addaction name="menuOptions"/>
@@ -48,6 +53,24 @@ background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>Clear</string>
+   </property>
+  </action>
+  <action name="actionPen_Color">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/palette.png</normaloff>:/Image/Image/palette.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pen Color</string>
+   </property>
+  </action>
+  <action name="actionPen_Width">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/pen-tip.png</normaloff>:/Image/Image/pen-tip.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pen Width</string>
    </property>
   </action>
  </widget>

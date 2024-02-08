@@ -27,6 +27,10 @@ protected:
 private slots:
     void on_actionClear_triggered();
 
+    void on_actionPen_Color_triggered();
+
+    void on_actionPen_Width_triggered();
+
 private:
     Ui::Sketcher *ui;
     QGraphicsScene *scene;
