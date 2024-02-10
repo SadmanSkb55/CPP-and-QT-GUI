@@ -1,40 +1,49 @@
 #ifndef SKETCHER_H
 #define SKETCHER_H
 
+#include <QList>
 #include <QMainWindow>
-#include <QGraphicsScene>
-#include <QGraphicsLineItem>
-#include <QMouseEvent>  // Include QMouseEvent for the correct type
 
-namespace Ui {
-class Sketcher;
-}
+class ScribbleArea;
 
 class Sketcher : public QMainWindow
 {
     Q_OBJECT
 
 public:
+    // Constructor declaration with QWidget pointer as parameter
     explicit Sketcher(QWidget *parent = nullptr);
-    ~Sketcher();
 
 protected:
-    // Replace QGraphicsSceneMouseEvent with QMouseEvent
-    void mousePressEvent(QMouseEvent *event) override;
-    void mouseMoveEvent(QMouseEvent *event) override;
-    void mouseReleaseEvent(QMouseEvent *event) override;
+    void closeEvent(QCloseEvent *event) override;
 
 private slots:
-    void on_actionClear_triggered();
-
-    void on_actionPen_Color_triggered();
-
-    void on_actionPen_Width_triggered();
+    void open();
+    void save();
+    void penColor();
+    void penWidth();
+    void about();
 
 private:
-    Ui::Sketcher *ui;
-    QGraphicsScene *scene;
-    QGraphicsLineItem *currentLine;
+    void createActions();
+    void createMenus();
+    bool maybeSave();
+    bool saveFile(const QByteArray &fileFormat);
+
+    ScribbleArea *scribbleArea;
+    QMenu *saveAsMenu;
+    QMenu *fileMenu;
+    QMenu *optionMenu;
+    QMenu *helpMenu;
+    QAction *openAct;
+    QList<QAction *> saveAsActs;
+    QAction *exitAct;
+    QAction *penColorAct;
+    QAction *penWidthAct;
+    QAction *printAct;
+    QAction *clearScreenAct;
+    QAction *aboutAct;
+    QAction *aboutQtAct;
 };
 
 #endif // SKETCHER_H
