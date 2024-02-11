@@ -14,24 +14,18 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     notewindow.cpp \
-    scribblearea.cpp \
-    sketcher.cpp \
     table.cpp
 
 HEADERS += \
     form.h \
     mainwindow.h \
     notewindow.h \
-    scribblearea.h \
-    sketcher.h \
     table.h
 
 FORMS += \
     form.ui \
     mainwindow.ui \
     notewindow.ui \
-    scribblearea.ui \
-    sketcher.ui \
     table.ui
 
 # Default rules for deployment.
