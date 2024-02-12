@@ -14,18 +14,24 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     notewindow.cpp \
+    sketchfcompanion.cpp \
+    sketchform.cpp \
     table.cpp
 
 HEADERS += \
     form.h \
     mainwindow.h \
     notewindow.h \
+    sketchfcompanion.h \
+    sketchform.h \
     table.h
 
 FORMS += \
     form.ui \
     mainwindow.ui \
     notewindow.ui \
+    sketchfcompanion.ui \
+    sketchform.ui \
     table.ui
 
 # Default rules for deployment.
