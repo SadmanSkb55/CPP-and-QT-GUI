@@ -37,7 +37,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include "table.h"
-//#include "sketcher.h"
+#include "sketchform.h"
 
 
 //class Form;
@@ -753,10 +753,9 @@ void NoteWindow::on_actionOpen_Google_Sheets_triggered()
 
 void NoteWindow::on_actionInsert_Sketch_Form_triggered()
 {
-   // // qDebug() << "Insert Sketch Form triggered"; // Add this line for debugging
-
-   //  Sketcher *newSketcher = new Sketcher(this);
-   //  ui->tabWidget->addTab(newSketcher, QString("Tab %0(Sketcher)").arg(ui->tabWidget->count() + 1));
-   //  ui->tabWidget->setCurrentIndex(ui->tabWidget->count() - 1);
+    SketchForm *newSketchForm = new SketchForm(this);
+    ui->tabWidget->addTab(newSketchForm, QString("Tab %0(SketchForm)").arg(ui->tabWidget->count() + 1));
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->count() - 1);
 }
+
 

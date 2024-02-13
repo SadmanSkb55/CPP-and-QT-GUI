@@ -1,19 +1,20 @@
 #ifndef SKETCHFORM_H
 #define SKETCHFORM_H
 
+#include <QList>
 #include <QMainWindow>
+#include "notewindow.h"
 
-namespace Ui {
-class SketchForm;
-}
+class SketchFCompanion;
 
 class SketchForm : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit SketchForm(QWidget *parent = nullptr);
+    explicit SketchForm(NoteWindow *parent = nullptr);
     ~SketchForm();
+        //SketchForm();
 
 private slots:
     void on_actionPen_Color_triggered();
@@ -21,9 +22,9 @@ private slots:
     void on_actionPen_Width_triggered();
 
     void on_actionClear_triggered();
-
 private:
     Ui::SketchForm *ui;
+    SketchFCompanion *sketchFCompanion;
 };
 
-#endif // SKETCHFORM_H
+#endif
