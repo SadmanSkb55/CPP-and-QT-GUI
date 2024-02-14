@@ -13,6 +13,16 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">color: rgb(255, 255, 255);
+
+alternate-background-color: rgb(255, 255, 255);
+
+
+selection-color: rgb(170, 0, 0);
+
+background-color: rgb(16, 16, 16);</string>
+  </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -27,13 +37,14 @@
     <property name="title">
      <string>Options</string>
     </property>
+    <addaction name="actionPen"/>
+    <addaction name="actionEraser"/>
     <addaction name="actionPen_Color"/>
     <addaction name="actionPen_Width"/>
     <addaction name="actionClear"/>
    </widget>
    <addaction name="menuOptions"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>toolBar</string>
@@ -44,6 +55,8 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionPen"/>
+   <addaction name="actionEraser"/>
    <addaction name="actionPen_Color"/>
    <addaction name="actionPen_Width"/>
    <addaction name="actionClear"/>
@@ -73,6 +86,24 @@
    </property>
    <property name="text">
     <string>Clear</string>
+   </property>
+  </action>
+  <action name="actionEraser">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/delete (2).png</normaloff>:/Image/Image/delete (2).png</iconset>
+   </property>
+   <property name="text">
+    <string>Eraser</string>
+   </property>
+  </action>
+  <action name="actionPen">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/pencil.png</normaloff>:/Image/Image/pencil.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pen</string>
    </property>
   </action>
  </widget>
