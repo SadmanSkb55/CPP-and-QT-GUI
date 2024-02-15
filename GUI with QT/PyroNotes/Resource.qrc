@@ -33,7 +33,6 @@
         <file>Image/information.png</file>
         <file>Image/send-mail.png</file>
         <file>Image/table.png</file>
-        <file>Image/add.png</file>
         <file>Image/row.png</file>
         <file>Image/delete (1).png</file>
         <file>Image/delete.png</file>
@@ -54,5 +53,8 @@
         <file>Image/pencil.png</file>
         <file>Image/pen-tip.png</file>
         <file>Image/shapes.png</file>
+        <file>Image/add.png</file>
+        <file>Image/add-file.png</file>
+        <file>Image/photo.png</file>
     </qresource>
 </RCC>
