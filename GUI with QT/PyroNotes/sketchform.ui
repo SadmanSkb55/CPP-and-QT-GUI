@@ -43,7 +43,15 @@ background-color: rgb(16, 16, 16);</string>
     <addaction name="actionPen_Width"/>
     <addaction name="actionClear"/>
    </widget>
+   <widget class="QMenu" name="menuAdd_ons">
+    <property name="title">
+     <string>Add-ons</string>
+    </property>
+    <addaction name="actionAdd_Text"/>
+    <addaction name="actionAdd_Image"/>
+   </widget>
    <addaction name="menuOptions"/>
+   <addaction name="menuAdd_ons"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
@@ -104,6 +112,24 @@ background-color: rgb(16, 16, 16);</string>
    </property>
    <property name="text">
     <string>Pen</string>
+   </property>
+  </action>
+  <action name="actionAdd_Text">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/add-file.png</normaloff>:/Image/Image/add-file.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add Text</string>
+   </property>
+  </action>
+  <action name="actionAdd_Image">
+   <property name="icon">
+    <iconset resource="Resource.qrc">
+     <normaloff>:/Image/Image/photo.png</normaloff>:/Image/Image/photo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add Image</string>
    </property>
   </action>
  </widget>

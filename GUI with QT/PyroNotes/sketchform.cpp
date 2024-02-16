@@ -75,12 +75,16 @@ void SketchForm::on_actionPen_triggered()
     sketchFCompanion->setPenColor(Qt::black);
 }
 
-// void SketchForm::on_actionAddImage_triggred(){
 
-// }
 
-// void SketchForm::on_actionAddText_triggred(){
+void SketchForm::on_actionAdd_Text_triggered()
+{
 
-// }
+}
 
+
+void SketchForm::on_actionAdd_Image_triggered()
+{
+
+}
 
