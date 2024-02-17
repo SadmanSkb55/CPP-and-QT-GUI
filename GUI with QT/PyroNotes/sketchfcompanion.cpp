@@ -103,3 +103,21 @@ void SketchFCompanion::resizeImage(QImage *image, const QSize &newSize)
     painter.drawImage(QPoint(0, 0), *image);
     *image = newImage;
 }
+
+void SketchFCompanion::addText(const QString &text, const QPoint &position) {
+    QPainter painter(&image); // Assuming you want to draw text on the image
+    painter.setPen(QPen(myPenColor, myPenWidth)); // Set the pen color and width
+    painter.drawText(position, text);
+}
+
+
+void SketchFCompanion::addImage(const QPixmap &image, const QPoint &position)
+{
+    QPainter painter(&this->image);
+    painter.drawPixmap(position, image);
+}
+
+
+
+
+

@@ -27,6 +27,10 @@ private slots:
 
     void on_actionPen_triggered();
 
+    void on_actionAdd_Text_triggered();
+
+    void on_actionAdd_Image_triggered();
+
 private:
     Ui::SketchForm *ui;
     SketchFCompanion *sketchFCompanion;

@@ -80,11 +80,38 @@ void SketchForm::on_actionPen_triggered()
 void SketchForm::on_actionAdd_Text_triggered()
 {
 
-}
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("Add Text"), tr("Enter text:"), QLineEdit::Normal, "", &ok);
 
+
+    if (ok && !text.isEmpty()) {
+
+        QPoint position(100, 100);
+
+
+        sketchFCompanion->addText(text, position);
+    }
+}
 
 void SketchForm::on_actionAdd_Image_triggered()
 {
+    QString imagePath = QFileDialog::getOpenFileName(this, tr("Add Image"), QDir::homePath(), tr("Image Files (*.png *.jpg *.jpeg *.bmp)"));
 
+    if (!imagePath.isEmpty()) {
+
+        QImage image(imagePath);
+
+
+        if (!image.isNull()) {
+
+            QPoint position(100, 100);
+
+            QPixmap pixmap = QPixmap::fromImage(image);
+            sketchFCompanion->addImage(pixmap, position);
+        } else {
+            QMessageBox::warning(this, tr("Error"), tr("Failed to load image."));
+        }
+    }
 }
+
 

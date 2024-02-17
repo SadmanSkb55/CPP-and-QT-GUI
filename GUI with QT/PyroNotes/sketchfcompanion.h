@@ -5,6 +5,7 @@
 #include <QImage>
 #include <QPoint>
 #include <QWidget>
+#include <QPixmap>
 
 class SketchFCompanion : public QWidget
 {
@@ -15,6 +16,10 @@ public:
 
     void setPenColor(const QColor &newColor);
     void setPenWidth(int newWidth);
+
+    void addImage(const QPixmap &image, const QPoint &position);
+
+    void addText(const QString &text, const QPoint &position);
 
     bool isModified() const { return modified; }
     QColor penColor() const { return myPenColor; }
@@ -37,9 +42,13 @@ private:
     bool modified;
     bool scribbling;
     int myPenWidth;
+
+    QPixmap sketch; // Declare sketch as a member variable
+
     QColor myPenColor;
     QImage image;
     QPoint lastPoint;
+
 };
 
 #endif
