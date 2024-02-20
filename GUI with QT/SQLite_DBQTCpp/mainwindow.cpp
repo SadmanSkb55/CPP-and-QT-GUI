@@ -28,6 +28,22 @@ void MainWindow::on_pushButton_clicked()
                 ui->label->setText("Failed to connect to the database");
         return;
     }
+    QSqlQuery query;
+    if(query.exec("SELECT *FROM Users where username='"+uname+"' and password='"+pass+"'")){
+        int count;
+        while(query.next()){
+            count++;
+        }
+        if(count==1){
+            ui->label->setText("Matched!!");
+        }
+        if(count>1){
+            ui->label->setText("Duplicate!!");
+        }
+        if(count<1){
+            ui->label->setText("Incorrect!!");
+        }
 
+    }
 }
 
