@@ -1,14 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "dialogue.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    mydb = QSqlDatabase::addDatabase("QSQLITE"); // Corrected driver name
-    mydb.setDatabaseName("D:/SQLite/database.db"); // Corrected path using forward slashes or escaped backslashes
-    if(!mydb.open())
+
+    if(!connOpen())
         ui->label->setText("Failed to connect to the database");
     else
         ui->label->setText("Connected to the database");
@@ -24,18 +24,26 @@ void MainWindow::on_pushButton_clicked()
     QString pass,uname;
     uname=ui->lineEdit->text();
     pass=ui->lineEdit_2->text();
-    if(!mydb.isOpen()){
+    if(!connOpen()){
                 ui->label->setText("Failed to connect to the database");
         return;
     }
+
+    connOpen();
     QSqlQuery query;
-    if(query.exec("SELECT *FROM Users where username='"+uname+"' and password='"+pass+"'")){
+    query.prepare("SELECT *FROM Users where username='"+uname+"' and password='"+pass+"'");
+    if(query.exec()){
         int count;
         while(query.next()){
             count++;
         }
         if(count==1){
             ui->label->setText("Matched!!");
+            connClose();
+            this->hide();
+            Dialogue *d = new Dialogue(this);
+            d->show();
+
         }
         if(count>1){
             ui->label->setText("Duplicate!!");

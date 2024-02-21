@@ -17,6 +17,25 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+     QSqlDatabase mydb ;
+    void connClose(){
+        mydb.close();
+        mydb.removeDatabase(QSqlDatabase::defaultConnection);
+    }
+     bool connOpen(){
+         mydb = QSqlDatabase::addDatabase("QSQLITE"); // Corrected driver name
+         mydb.setDatabaseName("D:/SQLite/database.db"); // Corrected path using forward slashes or escaped backslashes
+         if(!mydb.open()){
+             qDebug()<<"Failed to connect to the database";
+             return false;
+         }
+         else{
+             qDebug()<<"Connected to the database";
+             return true;
+         }
+     }
+
+public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
@@ -25,6 +44,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QSqlDatabase mydb ;
+
 };
 #endif // MAINWINDOW_H
