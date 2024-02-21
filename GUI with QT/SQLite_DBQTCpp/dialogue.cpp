@@ -49,3 +49,34 @@ void Dialogue::on_pushButton_clicked()
     }
 }
 
+
+void Dialogue::on_pushButton_2_clicked()
+{
+    MainWindow m;
+
+    QString ID,Name,Email,Number;
+
+    ID=ui->ID->text();
+    Name=ui->Name->text();
+    Email=ui->Email->text();
+    Number=ui->Number->text();
+
+    if(!m.connOpen()){
+        ui->label->setText("Failed to connect to the database");
+        return;
+    }
+
+    m.connOpen();
+    QSqlQuery query;
+    query.prepare("update users set ID='"+ID+"',Name='"+Name+"',Email='"+Email+"',Number='"+Number+"' where ID='"+ID+"'");
+
+    if(query.exec()){
+        QMessageBox::critical(this,tr("Saved"),tr("Saved!!!!"));
+        m.connClose();
+    }
+    else
+    {
+        QMessageBox::critical(this,tr("Error::"),query.lastError().text());
+    }
+}
+
