@@ -111,3 +111,27 @@ void Dialogue::on_pushButton_3_clicked()
     }
 }
 
+
+void Dialogue::on_pushButton_4_clicked()
+{
+    MainWindow m;
+    QSqlQueryModel * mdl=new QSqlQueryModel();
+
+    m.connOpen();
+    QSqlQuery * qryx=new QSqlQuery(m.mydb);
+    qryx->prepare("SELECT *FROM Users");
+    qryx->exec();
+    mdl->setQuery(std::move(*qryx));
+    ui->tableView->setModel(mdl);
+    m.connClose();
+   ui->statuslabel->setText(QString::number(mdl->rowCount()));
+
+
+
+
+
+
+
+
+}
+
