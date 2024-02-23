@@ -114,24 +114,63 @@ void Dialogue::on_pushButton_3_clicked()
 
 void Dialogue::on_pushButton_4_clicked()
 {
-    MainWindow m;
+     MainWindow m;
     QSqlQueryModel * mdl=new QSqlQueryModel();
 
     m.connOpen();
     QSqlQuery * qryx=new QSqlQuery(m.mydb);
-    qryx->prepare("SELECT *FROM Users");
+    qryx->prepare("SELECT Name FROM Users");
     qryx->exec();
     mdl->setQuery(std::move(*qryx));
+    ui->listView->setModel(mdl);
+    ui->comboBox->setModel(mdl);
     ui->tableView->setModel(mdl);
+
     m.connClose();
-   ui->statuslabel->setText(QString::number(mdl->rowCount()));
+    ui->statuslabel->setText(QString::number(mdl->rowCount()));
+
+}
 
 
+void Dialogue::on_comboBox_currentIndexChanged(int index)
+{
+    QString Name=ui->comboBox->currentText();
+
+    MainWindow m;
 
 
+    if(!m.connOpen()){
+        ui->label->setText("Failed to connect to the database");
+        return;
+    }
+
+    m.connOpen();
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Users where Name='"+Name+"'");
+
+    if(query.exec()){
+        ui->ID->setText(query.value(0).toString());
+            ui->Name->setText(query.value(1).toString());
+            ui->Email->setText(query.value(2).toString());
+                    ui->Number->setText(query.value(3).toString());
+
+        m.connClose();
+    }
+    else
+    {
+        QMessageBox::critical(this,tr("Error::"),query.lastError().text());
+    }
+}
 
 
+void Dialogue::on_listView_activated(const QModelIndex &index)
+{
 
+}
+
+
+void Dialogue::on_tableView_activated(const QModelIndex &index)
+{
 
 }
 

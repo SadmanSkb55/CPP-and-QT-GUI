@@ -26,6 +26,12 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_comboBox_currentIndexChanged(int index);
+
+    void on_listView_activated(const QModelIndex &index);
+
+    void on_tableView_activated(const QModelIndex &index);
+
 private:
     Ui::Dialogue *ui;
 };
