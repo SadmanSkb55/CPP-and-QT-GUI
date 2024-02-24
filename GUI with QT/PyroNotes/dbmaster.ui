@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DBMaster</class>
+ <widget class="QMainWindow" name="DBMaster">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>455</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(36, 36, 36);
+color: rgb(255, 255, 255);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTableWidget" name="tableWidget"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="menuExport_As">
+     <property name="title">
+      <string>Export As</string>
+     </property>
+     <addaction name="actionExport_As_CSV"/>
+     <addaction name="actionExport_As_XLS"/>
+    </widget>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="menuExport_As"/>
+   </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionAdd_New_table"/>
+    <addaction name="actionDelete_Table"/>
+    <addaction name="actionUpdate_Table"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionAdd_New_Row"/>
+    <addaction name="actionDelete_Record"/>
+    <addaction name="actionUpdate_Record"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuOptions"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSave">
+   <property name="text">
+    <string> Save DateBase</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string> Open DataBase</string>
+   </property>
+  </action>
+  <action name="actionAdd_New_Row">
+   <property name="text">
+    <string>Add New Record</string>
+   </property>
+  </action>
+  <action name="actionDelete_Record">
+   <property name="text">
+    <string>Delete Record</string>
+   </property>
+  </action>
+  <action name="actionUpdate_Record">
+   <property name="text">
+    <string>Update Record</string>
+   </property>
+  </action>
+  <action name="actionAdd_New_table">
+   <property name="text">
+    <string>Add New table</string>
+   </property>
+  </action>
+  <action name="actionDelete_Table">
+   <property name="text">
+    <string>Delete Table</string>
+   </property>
+  </action>
+  <action name="actionUpdate_Table">
+   <property name="text">
+    <string>Update Table</string>
+   </property>
+  </action>
+  <action name="actionExport_As_CSV">
+   <property name="text">
+    <string>Export As CSV</string>
+   </property>
+  </action>
+  <action name="actionExport_As_XLS">
+   <property name="text">
+    <string>Export As XLS</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
