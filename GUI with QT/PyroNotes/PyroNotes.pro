@@ -1,4 +1,4 @@
-QT += core gui printsupport texttospeech multimedia
+QT += core gui printsupport texttospeech multimedia sql
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
