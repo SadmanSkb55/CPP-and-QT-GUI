@@ -97,6 +97,8 @@ private slots:
 
     void on_actionInsert_Sketch_Form_triggered();
 
+    void on_actionInsert_Database_Master_triggered();
+
 private:
     Ui::NoteWindow *ui;
     QString file_path;

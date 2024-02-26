@@ -38,6 +38,7 @@
 #include <QNetworkReply>
 #include "table.h"
 #include "sketchform.h"
+#include "dbmaster.h"
 
 
 //class Form;
@@ -759,3 +760,10 @@ void NoteWindow::on_actionInsert_Sketch_Form_triggered()
 }
 
 
+
+void NoteWindow::on_actionInsert_Database_Master_triggered()
+{
+    DBMaster *dbMaster = new DBMaster(this); // Instantiate the DBMaster class
+    ui->tabWidget->addTab(dbMaster, "Database Master"); // Add DBMaster as a tab
+    ui->tabWidget->setCurrentWidget(dbMaster); // Set the newly added tab as the current tab
+}

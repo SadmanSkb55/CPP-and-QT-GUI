@@ -44,6 +44,7 @@ color: rgb(255, 255, 255);</string>
      <addaction name="actionExport_As_CSV"/>
      <addaction name="actionExport_As_XLS"/>
     </widget>
+    <addaction name="actionNew_Database"/>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="menuExport_As"/>
@@ -58,7 +59,7 @@ color: rgb(255, 255, 255);</string>
     <addaction name="separator"/>
     <addaction name="separator"/>
     <addaction name="separator"/>
-    <addaction name="actionAdd_New_Row"/>
+    <addaction name="actionAdd_New_Record"/>
     <addaction name="actionDelete_Record"/>
     <addaction name="actionUpdate_Record"/>
    </widget>
@@ -76,7 +77,7 @@ color: rgb(255, 255, 255);</string>
     <string> Open DataBase</string>
    </property>
   </action>
-  <action name="actionAdd_New_Row">
+  <action name="actionAdd_New_Record">
    <property name="text">
     <string>Add New Record</string>
    </property>
@@ -114,6 +115,11 @@ color: rgb(255, 255, 255);</string>
   <action name="actionExport_As_XLS">
    <property name="text">
     <string>Export As XLS</string>
+   </property>
+  </action>
+  <action name="actionNew_Database">
+   <property name="text">
+    <string>New Database</string>
    </property>
   </action>
  </widget>
