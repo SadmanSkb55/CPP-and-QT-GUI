@@ -2,6 +2,13 @@
 #define DBMASTER_H
 
 #include <QMainWindow>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QTableWidget> // Add this line
+
 
 namespace Ui {
 class DBMaster;
@@ -14,6 +21,8 @@ class DBMaster : public QMainWindow
 public:
     explicit DBMaster(QWidget *parent = nullptr);
     ~DBMaster();
+
+    void populateTableWidget();
 
 private slots:
     void on_actionOpen_triggered();
@@ -43,6 +52,8 @@ private slots:
 private:
     Ui::DBMaster *ui;
      QString currentDatabaseName;
+    QTableWidget *tableWidget;
+     //void populateTableWidget();
 };
 
 #endif // DBMASTER_H
