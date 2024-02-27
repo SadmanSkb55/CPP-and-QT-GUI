@@ -14,13 +14,14 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(36, 36, 36);
-color: rgb(255, 255, 255);</string>
+   <string notr="true">
+background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTableWidget" name="tableWidget"/>
+     <widget class="QTableView" name="tableView"/>
     </item>
    </layout>
   </widget>

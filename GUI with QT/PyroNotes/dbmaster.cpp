@@ -6,18 +6,21 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QInputDialog>
-//#include <QAxObject>
 #include <QFile>
 #include <QTextStream>
 #include <QSqlQuery>
 #include <QSqlRecord>
+#include <QStandardItemModel> // Include QStandardItemModel for handling the model
 
 DBMaster::DBMaster(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::DBMaster)
 {
     ui->setupUi(this);
-    tableWidget = ui->tableWidget;
+    tableView = ui->tableView; // Change to tableView
+    model = new QStandardItemModel(this);
+   // model->setEditable(true);    // Change to model
+    tableView->setModel(model);
 }
 
 DBMaster::~DBMaster()
@@ -27,22 +30,23 @@ DBMaster::~DBMaster()
 
 void DBMaster::populateTableWidget() {
     // Clear existing contents
-    tableWidget->clear();
+    model->clear(); // Change to model
 
     // Fetch data from the database and populate the table
-    QSqlQuery query("SELECT * FROM contacts");
+    QSqlQuery query("SELECT * FROM users");
     int rowCount = 0;
     while (query.next()) {
-        if (rowCount >= tableWidget->rowCount()) {
-            tableWidget->insertRow(rowCount);
-        }
+        QList<QStandardItem*> row;
         for (int i = 0; i < query.record().count(); ++i) {
-            QTableWidgetItem *item = new QTableWidgetItem(query.value(i).toString());
-            tableWidget->setItem(rowCount, i, item);
+            row.append(new QStandardItem(query.value(i).toString()));
         }
+        model->appendRow(row); // Change to model
         ++rowCount;
     }
 }
+
+// Implement other slots and methods
+
 
 void DBMaster::on_actionOpen_triggered()
 {
@@ -70,11 +74,29 @@ void DBMaster::on_actionNew_Database_triggered()
             QMessageBox::critical(this, "Error", "Failed to create database:\n" + db.lastError().text());
         } else {
             QMessageBox::information(this, "Success", "New database created successfully!");
-            currentDatabaseName = dbName;
-            populateTableWidget(); // Populate the table widget with data from the database
+
+            // Prompt the user to input table schema
+            bool ok;
+            QString schema = QInputDialog::getText(this, tr("Create New Table"),
+                                                   tr("Enter table schema (column1 type1, column2 type2, ...)"),
+                                                   QLineEdit::Normal, QString(), &ok);
+            if (ok && !schema.isEmpty()) {
+                // Execute SQL command to create the table
+                QSqlQuery query(db);
+                QString createTableQuery = "CREATE TABLE IF NOT EXISTS tableName (" + schema + ")";
+                if (query.exec(createTableQuery)) {
+                    QMessageBox::information(this, "Success", "Table created successfully!");
+                    currentDatabaseName = dbName;
+                    populateTableWidget(); // Populate the table widget with data from the database
+                } else {
+                    QMessageBox::critical(this, "Error", "Failed to create table:\n" + query.lastError().text());
+                }
+            }
         }
     }
 }
+
+
 void DBMaster::on_actionSave_triggered()
 {
     if (currentDatabaseName.isEmpty()) {

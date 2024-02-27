@@ -7,7 +7,9 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
-#include <QTableWidget> // Add this line
+#include <QTableWidget>
+#include <QTableView>
+#include <QStandardItemModel>
 
 
 namespace Ui {
@@ -52,7 +54,8 @@ private slots:
 private:
     Ui::DBMaster *ui;
      QString currentDatabaseName;
-    QTableWidget *tableWidget;
+    QTableView * tableView;
+     QStandardItemModel *model;
      //void populateTableWidget();
 };
 
