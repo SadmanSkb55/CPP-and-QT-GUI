@@ -10,7 +10,9 @@
 #include <QTextStream>
 #include <QSqlQuery>
 #include <QSqlRecord>
-#include <QStandardItemModel> // Include QStandardItemModel for handling the model
+#include <QStandardItemModel>
+//#include <QXlsx>
+#include <QAxObject>
 
 DBMaster::DBMaster(QWidget *parent) :
     QMainWindow(parent),
@@ -119,13 +121,71 @@ void DBMaster::on_actionSave_triggered()
 
 void DBMaster::on_actionExport_As_CSV_triggered()
 {
-
+    QString fileName = QFileDialog::getSaveFileName(this, "Export as CSV", QString(), "CSV Files (*.csv)");
+    if (!fileName.isEmpty()) {
+        QFile file(fileName);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QTextStream stream(&file);
+            QStringList headers;
+            // Write headers
+            for (int col = 0; col < tableView->model()->columnCount(); ++col) {
+                headers << tableView->model()->headerData(col, Qt::Horizontal).toString();
+            }
+            stream << headers.join(",") << "\n";
+            // Write data
+            for (int row = 0; row < tableView->model()->rowCount(); ++row) {
+                QStringList rowData;
+                for (int col = 0; col < tableView->model()->columnCount(); ++col) {
+                    rowData << tableView->model()->data(tableView->model()->index(row, col)).toString();
+                }
+                stream << rowData.join(",") << "\n";
+            }
+            QMessageBox::information(this, "Success", "Data exported as CSV successfully!");
+            file.close();
+        } else {
+            QMessageBox::critical(this, "Error", "Failed to open file for writing.");
+        }
+    }
 }
 
 
 void DBMaster::on_actionExport_As_XLS_triggered()
 {
+    QString fileName = QFileDialog::getSaveFileName(this, "Export as XLS", QString(), "Excel Files (*.xls *.xlsx)");
+    if (!fileName.isEmpty()) {
+        QAxObject excel("Excel.Application");
+        excel.setProperty("Visible", false); // Hide Excel application window
 
+        QAxObject *workbooks = excel.querySubObject("Workbooks");
+        QAxObject *workbook = workbooks->querySubObject("Add()");
+        QAxObject *sheets = workbook->querySubObject("Sheets");
+        QAxObject *sheet = sheets->querySubObject("Item(int)", 1); // Access the first sheet
+
+        // Write headers
+        for (int col = 0; col < tableView->model()->columnCount(); ++col) {
+            QVariant headerData = tableView->model()->headerData(col, Qt::Horizontal);
+            sheet->querySubObject("Cells(int,int)", 1, col + 1)->setProperty("Value", headerData.toString());
+        }
+
+        // Write data
+        for (int row = 0; row < tableView->model()->rowCount(); ++row) {
+            for (int col = 0; col < tableView->model()->columnCount(); ++col) {
+                QVariant cellData = tableView->model()->data(tableView->model()->index(row, col));
+                sheet->querySubObject("Cells(int,int)", row + 2, col + 1)->setProperty("Value", cellData.toString());
+            }
+        }
+
+        workbook->dynamicCall("SaveAs(const QString&)", fileName);
+        workbook->dynamicCall("Close()");
+        excel.dynamicCall("Quit()");
+
+        delete sheet;
+        delete sheets;
+        delete workbook;
+        delete workbooks;
+
+        QMessageBox::information(this, "Success", "Data exported as XLS successfully!");
+    }
 }
 
 

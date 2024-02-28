@@ -1,4 +1,4 @@
-QT += core gui printsupport texttospeech multimedia sql
+QT += core gui printsupport texttospeech multimedia sql axcontainer
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
