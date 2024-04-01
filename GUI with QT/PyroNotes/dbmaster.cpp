@@ -209,20 +209,84 @@ void DBMaster::on_actionExport_As_XLS_triggered()
 
 void DBMaster::on_actionAdd_New_table_triggered()
 {
-
+    QString tableName = QInputDialog::getText(this, tr("Create New Table"),
+                                              tr("Enter table name:"), QLineEdit::Normal);
+    if (!tableName.isEmpty()) {
+        bool ok;
+        QString schema = QInputDialog::getText(this, tr("Create New Table"),
+                                               tr("Enter table schema (column1 type1, column2 type2, ...)"),
+                                               QLineEdit::Normal, QString(), &ok);
+        if (ok && !schema.isEmpty()) {
+            QSqlQuery query;
+            QString createTableQuery = "CREATE TABLE IF NOT EXISTS " + tableName + " (" + schema + ")";
+            if (query.exec(createTableQuery)) {
+                QMessageBox::information(this, "Success", "Table created successfully!");
+            } else {
+                QMessageBox::critical(this, "Error", "Failed to create table:\n" + query.lastError().text());
+            }
+        }
+    }
 }
+
 
 
 void DBMaster::on_actionDelete_Table_triggered()
 {
-
+    QString tableName = QInputDialog::getText(this, tr("Delete Table"),
+                                              tr("Enter table name to delete:"), QLineEdit::Normal);
+    if (!tableName.isEmpty()) {
+        int ret = QMessageBox::question(this, "Confirmation", "Are you sure you want to delete table '" + tableName + "'?",
+                                        QMessageBox::Yes | QMessageBox::No);
+        if (ret == QMessageBox::Yes) {
+            QSqlQuery query;
+            QString dropTableQuery = "DROP TABLE IF EXISTS " + tableName;
+            if (query.exec(dropTableQuery)) {
+                QMessageBox::information(this, "Success", "Table deleted successfully!");
+            } else {
+                QMessageBox::critical(this, "Error", "Failed to delete table:\n" + query.lastError().text());
+            }
+        }
+    }
 }
+
 
 
 void DBMaster::on_actionUpdate_Table_triggered()
 {
-
+    QString tableName = QInputDialog::getText(this, tr("Update Table"),
+                                              tr("Enter table name to update:"), QLineEdit::Normal);
+    if (!tableName.isEmpty()) {
+        bool ok;
+        QString newSchema = QInputDialog::getText(this, tr("Update Table"),
+                                                  tr("Enter new table schema (column1 type1, column2 type2, ...)"),
+                                                  QLineEdit::Normal, QString(), &ok);
+        if (ok && !newSchema.isEmpty()) {
+            QSqlQuery query;
+            QString updateTableQuery = "ALTER TABLE " + tableName + " RENAME TO " + tableName + "_temp";
+            if (query.exec(updateTableQuery)) {
+                QString createTableQuery = "CREATE TABLE IF NOT EXISTS " + tableName + " (" + newSchema + ")";
+                if (query.exec(createTableQuery)) {
+                    QString copyDataQuery = "INSERT INTO " + tableName + " SELECT * FROM " + tableName + "_temp";
+                    if (query.exec(copyDataQuery)) {
+                        QString dropTempTableQuery = "DROP TABLE IF EXISTS " + tableName + "_temp";
+                        if (query.exec(dropTempTableQuery)) {
+                            QMessageBox::information(this, "Success", "Table updated successfully!");
+                        } else {
+                            QMessageBox::critical(this, "Error", "Failed to drop temporary table:\n" + query.lastError().text());
+                        }
+                    } else {
+                        QMessageBox::critical(this, "Error", "Failed to copy data to new table:\n" + query.lastError().text());
+                    }
+                } else {
+                    QMessageBox::critical(this, "Error", "Failed to create new table:\n" + query.lastError().text());
+                }
+            } else {
+                QMessageBox::critical(this, "Error", "Failed to rename table:\n" + query.lastError().text());
+            }
+        }
+    }
 }
+
 
 
 
