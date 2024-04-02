@@ -25,6 +25,8 @@ public:
     ~DBMaster();
 
     void populateTableWidget();
+    QStringList getColumnNames();
+    QString getSelectedRecordId();
 
 private slots:
     void on_actionOpen_triggered();

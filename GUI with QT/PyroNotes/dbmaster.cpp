@@ -294,20 +294,106 @@ void DBMaster::on_actionUpdate_Table_triggered()
 
 void DBMaster::on_actionAdd_New_Record_triggered()
 {
+    // Assuming you have a method to retrieve column names from your model
+    QStringList columnNames = getColumnNames(); // Implement this method according to your model
 
+    // Prompt the user to enter data for each column
+    QStringList rowData;
+    for (const QString& columnName : columnNames) {
+        QString data = QInputDialog::getText(this, tr("Enter Data"),
+                                             tr("Enter data for column '%1':").arg(columnName), QLineEdit::Normal);
+        rowData.append(data);
+    }
+
+    // Insert the new record into the database
+    QSqlQuery query;
+    QString insertQuery = "INSERT INTO your_table_name (column1, column2, ...) VALUES (:val1, :val2, ...)";
+    query.prepare(insertQuery);
+    for (int i = 0; i < rowData.size(); ++i) {
+        query.bindValue(":val" + QString::number(i + 1), rowData.at(i));
+    }
+    if (query.exec()) {
+        QMessageBox::information(this, "Success", "New record added successfully!");
+        populateTableWidget(); // Update the table view to reflect the changes
+    } else {
+        QMessageBox::critical(this, "Error", "Failed to add new record:\n" + query.lastError().text());
+    }
 }
 
 
 void DBMaster::on_actionDelete_Record_triggered()
 {
+    // Assuming you have a method to retrieve the primary key or a unique identifier for each record
+    QString recordId = getSelectedRecordId(); // Implement this method according to your model
 
+    int ret = QMessageBox::question(this, "Confirmation", "Are you sure you want to delete this record?",
+                                    QMessageBox::Yes | QMessageBox::No);
+    if (ret == QMessageBox::Yes) {
+        QSqlQuery query;
+        QString deleteQuery = "DELETE FROM your_table_name WHERE primary_key_column = :id";
+        query.prepare(deleteQuery);
+        query.bindValue(":id", recordId);
+        if (query.exec()) {
+            QMessageBox::information(this, "Success", "Record deleted successfully!");
+            populateTableWidget(); // Update the table view to reflect the changes
+        } else {
+            QMessageBox::critical(this, "Error", "Failed to delete record:\n" + query.lastError().text());
+        }
+    }
 }
 
 
 void DBMaster::on_actionUpdate_Record_triggered()
 {
+    // Assuming you have a method to retrieve the primary key or a unique identifier for each record
+    QString recordId = getSelectedRecordId(); // Implement this method according to your model
 
+    // Prompt the user to input new data for the selected record
+    QStringList newData;
+    // You can implement this part similar to how you prompt for new data in the Add New Record function
+
+    // Update the record in the database
+    QSqlQuery query;
+    QString updateQuery = "UPDATE your_table_name SET column1 = :val1, column2 = :val2, ... WHERE primary_key_column = :id";
+    query.prepare(updateQuery);
+    for (int i = 0; i < newData.size(); ++i) {
+        query.bindValue(":val" + QString::number(i + 1), newData.at(i));
+    }
+    query.bindValue(":id", recordId);
+    if (query.exec()) {
+        QMessageBox::information(this, "Success", "Record updated successfully!");
+        populateTableWidget(); // Update the table view to reflect the changes
+    } else {
+        QMessageBox::critical(this, "Error", "Failed to update record:\n" + query.lastError().text());
+    }
 }
+
+
+
+QStringList DBMaster::getColumnNames() {
+    QStringList columnNames;
+    // Retrieve column names from your model
+    // For example:
+    for (int col = 0; col < model->columnCount(); ++col) {
+        columnNames.append(model->headerData(col, Qt::Horizontal).toString());
+    }
+    return columnNames;
+}
+
+QString DBMaster::getSelectedRecordId() {
+    // Assuming you have a way to determine the selected record's ID
+    // For example, if you have a primary key column named 'id':
+    QModelIndexList selectedIndexes = tableView->selectionModel()->selectedIndexes();
+    if (!selectedIndexes.isEmpty()) {
+        // Assuming 'id' is the first column
+        QModelIndex idIndex = selectedIndexes.at(0).sibling(selectedIndexes.at(0).row(), 0);
+        return model->data(idIndex).toString();
+    } else {
+        return QString(); // Return an empty string if no record is selected
+    }
+}
+
+
 
 
 
